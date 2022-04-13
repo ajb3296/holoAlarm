@@ -19,7 +19,7 @@ async def reset_db():
                     # 과거의 알림일 경우 제거 시도
                     for a in range(3):
                         LOGGER.info(f"Try delete {a}th : {table} - {data}")
-                        status = scheduleDB.delete_db(table, table[0])
+                        status = scheduleDB.delete_db(table, data[0])
                         LOGGER.info(f"Deleted : {table} - {data}")
                         if status is True:
                             break

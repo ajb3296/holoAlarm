@@ -62,7 +62,7 @@ class scheduleDB:
         table_list = cursor.fetchall()
         cursor.close()
         return table_list
-    
+
     def delete_db(table_name, id):
         # 데이터 제거
         conn = sqlite3.connect(schedule_db_path, isolation_level=None)
