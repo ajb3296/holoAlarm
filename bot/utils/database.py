@@ -17,6 +17,7 @@ class scheduleDB:
 
         # add se board data
         for holo in holo_list:
+            print(holo)
             c.execute(f"CREATE TABLE IF NOT EXISTS {holo[0]} (id integer PRIMARY KEY AUTOINCREMENT, datetime text, unixdatetime int, url text, thumbnail text, title text, iconImage text)")
             try:
                 c.execute(f"SELECT * FROM {holo[0]} WHERE title=:title", {"title": holo[1][4]})
@@ -25,7 +26,7 @@ class scheduleDB:
                 temp = None
             if temp is None:
                 # 없으면 추가
-                c.execute(f"INSERT INTO {holo[0]} (datetime, unixdatetime, url, thumbnail, title, iconImage) VALUES({holo[1][0]}, {int(holo[1][1])}, '{holo[1][2]}', '{holo[1][3]}', '{holo[1][4]}', '{holo[1][5]}')")
+                c.execute(f"INSERT INTO {holo[0]} (datetime, unixdatetime, url, thumbnail, title, iconImage) VALUES('{holo[1][0]}', {int(holo[1][1])}, '{holo[1][2]}', '{holo[1][3]}', '{holo[1][4]}', '{holo[1][5]}')")
         conn.close()
 
     def get_database(table_name):

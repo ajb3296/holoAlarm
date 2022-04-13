@@ -21,17 +21,18 @@ async def broadcast(bot):
         for table in table_list:
             table_data = scheduleDB.get_database(table)
 
-            # 테이블 내부 데이터 시간 체크 후 알림 전송
-            for data in table_data:
-                # 현재보다 알림할 시간이 크다면
-                if data[2] > now_datetime:
-                    LOGGER.info(f"Send msg : {data}")
-                    await send_msg(bot, table, data)
-                    status = scheduleDB.delete_db(table, data[0])
-                    if status is True:
-                        LOGGER.info(f"Data removal successful : {data}")
-                    else:
-                        LOGGER.info(f"Data removal failed, reset_db will delete it : {data}")
+            if table_data is not None:
+                # 테이블 내부 데이터 시간 체크 후 알림 전송
+                for data in table_data:
+                    # 현재보다 알림할 시간이 크다면
+                    if data[2] > now_datetime:
+                        LOGGER.info(f"Send msg : {data}")
+                        await send_msg(bot, table, data)
+                        status = scheduleDB.delete_db(table, data[0])
+                        if status is True:
+                            LOGGER.info(f"Data removal successful : {data}")
+                        else:
+                            LOGGER.info(f"Data removal failed, reset_db will delete it : {data}")
 
         await asyncio.sleep(30)
 
