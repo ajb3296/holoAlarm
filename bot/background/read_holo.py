@@ -2,25 +2,18 @@
 # (name, (datetime, unixdatetime, isLive, url, thumbnail, title, talent.iconImageUrl))
 #
 
-import re
-import json
-import asyncio
 from datetime import datetime
-from turtle import goto
 
-from bot.utils.crawler import getText
+from bot.utils.crawler import getJSON
 from bot.utils.database import *
-from bot import schedule_link, LOGGER
+from bot import schedule_link
 
-def read_holo():
+async def read_holo():
     while True:
         header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko'}
-        #result = await getJSON(schedule_link, header)
-        result = requests.get(schedule_link)
-        json_data = json.loads(result.text)
+        result = await getJSON(schedule_link, header)
         datetime.today().strftime('%m%d')
-        today_videos_list = json_data["dateGroupList"][0]["videoList"]
-        print(today_videos_list)
+        today_videos_list = result["dateGroupList"][0]["videoList"]
         # Table name : Vtuber name
         # info : datetime, unixdatetime, isLive, url, thumbnail, title, name, talent.iconImageUrl
         goto_DB = []
@@ -32,7 +25,10 @@ def read_holo():
                 goto_DB.append((temp['name'], (temp['datetime'], unixtime, temp['isLive'], temp['url'], temp['thumbnail'], temp['talent']['iconImageUrl'])))
             else:
                 # 데이터베이스에서 제거
-                status = scheduleDB.delete_db(temp['name'], temp[0])
+                try:
+                    status = scheduleDB.delete_db(temp['name'], temp[0])
+                except:
+                    pass
 
         break
 

@@ -5,6 +5,7 @@ from bot import LOGGER
 from bot.utils.database import *
 
 async def reset_db():
+    await asyncio.sleep(120)
     while True:
         table_list = await scheduleDB.get_table_list()
         # 알림 전송 오류를 해결하기 위한 1시간 지난 데이터 제거

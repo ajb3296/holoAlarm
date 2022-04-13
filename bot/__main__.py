@@ -4,6 +4,7 @@ import asyncio
 from discord.ext import commands
 from bot.background.read_holo import read_holo
 from bot.background.broadcast import broadcast
+from bot.background.reset_db import reset_db
 from bot.utils.database import channelDataDB
 
 from bot import LOGGER, TOKEN, EXTENSIONS, BOT_NAME_TAG_VER
@@ -44,6 +45,7 @@ class Bot (commands.Bot) :
         bot.loop.create_task(status_task())
         bot.loop.create_task(read_holo())
         bot.loop.create_task(broadcast(bot))
+        bot.loop.create_task(reset_db())
 
     async def on_message (self, message) :
         if message.author.bot:
