@@ -2,6 +2,7 @@
 config.py
 test.py
 *.db
+*.png
 
 
 # Byte-compiled / optimized / DLL files

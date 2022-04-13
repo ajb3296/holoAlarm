@@ -7,13 +7,13 @@ from bot.utils.database import *
 async def reset_db():
     await asyncio.sleep(120)
     while True:
-        table_list = await scheduleDB.get_table_list()
+        table_list = scheduleDB.get_table_list()
         # 알림 전송 오류를 해결하기 위한 1시간 지난 데이터 제거
         now_unix_time = int(datetime.now().timestamp())
         now_unix_time_plus_1_hour = now_unix_time + 3600
         for table in table_list:
             # 테이블 리스트
-            db_data = await scheduleDB.get_database(table)
+            db_data = scheduleDB.get_database(table)
             for data in db_data:
                 # 테이블 데이터 체크
                 if data[3] > now_unix_time_plus_1_hour:

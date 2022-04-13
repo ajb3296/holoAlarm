@@ -52,7 +52,8 @@ async def send_msg(bot, name, post):
                 embed.add_field(name="글쓴이", value=post[3], inline=True)
                 embed.add_field(name="방송시간", value=f"<t:{post[2]}>", inline=True)
                 embed.add_field(name="링크", value=post[3], inline=True)
-                embed.add_field(name="알림", value=role, inline=True)
+                if target_channel.guild.id == 866120502354116649:
+                    embed.add_field(name="알림", value=role, inline=True)
                 # 유튜버 프로필 설정
                 embed.set_thumbnail(url=post[6])
                 # 썸네일 설정
