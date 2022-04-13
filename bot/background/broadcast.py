@@ -4,7 +4,7 @@ import asyncio
 from datetime import datetime
 
 from bot.utils.database import *
-from bot import LOGGER, BOT_NAME_TAG_VER
+from bot import LOGGER, BOT_NAME_TAG_VER, color_code
 
 async def broadcast(bot):
     latest_data = {}
@@ -43,8 +43,14 @@ async def send_msg(bot, name, post):
         with open(f"bot/data/holo.json") as f:
             holo_color = json.load(f)
             holo_color = holo_color[post[name]]
-            color = int(str(holo_color['color']).replace("#", ""), 0)
-            role  = f"<@${int(holo_color['id'])}>"
+            try:
+                color = int(str(holo_color['color']).replace("#", ""), 0)
+            except:
+                color = color_code
+            try:
+                role  = f"<@${int(holo_color['id'])}>"
+            except:
+                role = None
 
         for channel_id in channel_id_list:
             target_channel = bot.get_channel(channel_id)
