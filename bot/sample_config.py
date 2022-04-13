@@ -14,7 +14,7 @@ class Config(object):
     BOT_TAG = "#" # 태그
     BOT_ID = 123456789 # 봇 아이디
 
-    color_code = 0xc68e6e # 색상코드
+    color_code = 0x62e0ec # 색상코드
 
     schedule_link = "https://schedule.hololive.tv/api/list"
     schedule_db_path = "holo.db"
