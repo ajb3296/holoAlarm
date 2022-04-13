@@ -2,6 +2,7 @@
 # (name, (datetime, unixdatetime, isLive, url, thumbnail, title, talent.iconImageUrl))
 #
 
+import asyncio
 from datetime import datetime
 
 from bot.utils.crawler import getJSON
@@ -22,18 +23,10 @@ async def read_holo():
             now_unix_time = int(datetime.now().timestamp())
             # 과거일 경우 추가하지 않음
             if unixtime > now_unix_time:
-                goto_DB.append((temp['name'], (temp['datetime'], unixtime, temp['isLive'], temp['url'], temp['thumbnail'], temp['talent']['iconImageUrl'])))
-            else:
-                # 데이터베이스에서 제거
-                try:
-                    status = scheduleDB.delete_db(temp['name'], temp[0])
-                except:
-                    pass
+                goto_DB.append((temp['name'], (temp['datetime'], unixtime, temp['url'], temp['thumbnail'], temp['title'], temp['talent']['iconImageUrl'])))
 
-        break
-
-        #scheduleDB.set_database(goto_DB)
-        #await asyncio.sleep(1800)
+        scheduleDB.set_database(goto_DB)
+        await asyncio.sleep(1800)
 
 if __name__ == "__main__":
     import requests

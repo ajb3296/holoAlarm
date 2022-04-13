@@ -19,7 +19,7 @@ class scheduleDB:
         for holo in holo_list:
             c.execute(f"CREATE TABLE IF NOT EXISTS {holo[0]} (id integer PRIMARY KEY AUTOINCREMENT, datetime text, unixdatetime int, url text, thumbnail text, title text, iconImage text)")
             try:
-                c.execute(f"SELECT * FROM {holo[0]} WHERE boardid=:Id", {"Id": holo[0]})
+                c.execute(f"SELECT * FROM {holo[0]} WHERE title=:title", {"title": holo[1][4]})
                 temp = c.fetchone()
             except:
                 temp = None
