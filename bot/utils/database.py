@@ -17,7 +17,6 @@ class scheduleDB:
 
         # add se board data
         for holo in holo_list:
-            print(holo)
             c.execute(f"CREATE TABLE IF NOT EXISTS {holo[0]} (id integer PRIMARY KEY AUTOINCREMENT, datetime text, unixdatetime int, url text, thumbnail text, title text, iconImage text)")
             try:
                 c.execute(f"SELECT * FROM {holo[0]} WHERE title=:title", {"title": holo[1][4]})
