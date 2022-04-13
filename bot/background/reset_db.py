@@ -14,14 +14,15 @@ async def reset_db():
         for table in table_list:
             # 테이블 리스트
             db_data = scheduleDB.get_database(table)
-            for data in db_data:
-                # 테이블 데이터 체크
-                if data[3] > now_unix_time_plus_1_hour:
-                    # 과거의 알림일 경우 제거 시도
-                    for a in range(3):
-                        LOGGER.info(f"Try delete {a}th : {table} - {data}")
-                        status = scheduleDB.delete_db(table, data[0])
-                        LOGGER.info(f"Deleted : {table} - {data}")
-                        if status is True:
-                            break
+            if db_data is not None:
+                for data in db_data:
+                    # 테이블 데이터 체크
+                    if data[3] > now_unix_time_plus_1_hour:
+                        # 과거의 알림일 경우 제거 시도
+                        for a in range(3):
+                            LOGGER.info(f"Try delete {a}th : {table} - {data}")
+                            status = scheduleDB.delete_db(table, data[0])
+                            LOGGER.info(f"Deleted : {table} - {data}")
+                            if status is True:
+                                break
         await asyncio.sleep(120)
