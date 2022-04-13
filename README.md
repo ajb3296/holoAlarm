@@ -4,7 +4,7 @@
 
 ## 봇 초대
 
-https://discord.com/api/oauth2/authorize?client_id=950607518252556328&permissions=414464789568&scope=bot%20applications.commands
+https://discord.com/api/oauth2/authorize?client_id=958949697756754000&permissions=8&scope=bot%20applications.commands
 
 ## How to install
 1. bot 폴더 안에 config.py 파일을 만든다.
