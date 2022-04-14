@@ -53,19 +53,19 @@ async def send_msg(bot, name, post):
         except:
             color = color_code
         try:
-            role  = f"<@${int(holo_color['id'])}>"
+            role  = f"<@&{int(holo_color['id'])}>"
         except:
             role = None
 
         for channel_id in channel_id_list:
             target_channel = bot.get_channel(channel_id)
             try:
+                if target_channel.guild.id == 866120502354116649 and role != None:
+                    target_channel.send(role)
                 embed=discord.Embed(title=post[5], description=f"", color=color)
                 embed.add_field(name="버튜버", value=name, inline=False)
                 embed.add_field(name="방송시간", value=f"<t:{post[2]}>", inline=False)
                 embed.add_field(name="링크", value=post[3], inline=False)
-                if target_channel.guild.id == 866120502354116649 and role != None:
-                    embed.add_field(name="알림", value=role, inline=False)
                 # 유튜버 프로필 설정
                 embed.set_thumbnail(url=post[6])
                 # 썸네일 설정

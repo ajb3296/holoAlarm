@@ -27,7 +27,7 @@ class scheduleDB:
                 # 없으면 추가
                 c.execute(f"INSERT INTO {holo[0]} (datetime, unixdatetime, url, thumbnail, title, iconImage) VALUES('{holo[1][0]}', {int(holo[1][1])}, '{holo[1][2]}', '{holo[1][3]}', '{holo[1][4]}', '{holo[1][5]}')")
             elif temp[5] != holo[1][4]:
-                c.execute(f"UPDATE {holo[0]} SET thumbnail=:thumbnail, url=:url, title=:title WHERE datetime=:datetime LIMIT 0", {"url": holo[1][2], "thumbnail": holo[1][3], "title": holo[1][4], 'datetime': holo[1][0]})
+                c.execute(f"UPDATE {holo[0]} SET thumbnail=:thumbnail, url=:url, title=:title WHERE datetime=:datetime LIMIT 1", {"url": holo[1][2], "thumbnail": holo[1][3], "title": holo[1][4], 'datetime': holo[1][0]})
         conn.close()
 
     def get_database(table_name):
