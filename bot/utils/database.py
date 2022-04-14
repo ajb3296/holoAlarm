@@ -61,7 +61,10 @@ class scheduleDB:
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
         table_list = cursor.fetchall()
         cursor.close()
-        return table_list
+        tables = []
+        for table in tables:
+            tables.append(table[0])
+        return tables
 
     def delete_db(table_name, id):
         # 데이터 제거
