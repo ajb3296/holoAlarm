@@ -10,7 +10,7 @@ class Help (commands.Cog) :
 
     @slash_command()
     async def help (self, ctx, *, help_option : Option(str, "알고 싶은 메뉴를 선택하세요.", choices=["GENERAL", "ALARM"])) :
-        """ 도움말 """
+        """ Help """
         if not help_option == None:
             help_option = help_option.upper()
         if help_option == "GENERAL" or help_option == "일반":
