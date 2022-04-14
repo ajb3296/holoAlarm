@@ -41,7 +41,7 @@ async def send_msg(bot, name, post):
     if channel_id_list != None:
         # 홀로 컬러데이터 가져오기
         with open(f"bot/data/holo.json") as f:
-            holo_color = json.load(f)
+            holo_color = json.loads(f)
             holo_color = holo_color[post[name]]
             try:
                 color = int(str(holo_color['color']).replace("#", ""), 0)

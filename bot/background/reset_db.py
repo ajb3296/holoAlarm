@@ -19,7 +19,7 @@ async def reset_db():
                     if int(data[2]) + 3600 < now_unix_time:
                         print(data[2])
                         # 과거의 알림일 경우 제거 시도
-                        for a in range(3):
+                        for a in range(1, 4):
                             try:
                                 LOGGER.info(f"Try delete {a}th : {table} - {data}")
                                 status = scheduleDB.delete_db(table, data[0])
