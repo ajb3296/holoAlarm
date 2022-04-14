@@ -17,7 +17,6 @@ async def reset_db():
                 for data in db_data:
                     # 테이블 데이터 체크
                     if int(data[2]) + 3600 < now_unix_time:
-                        print(data[2])
                         # 과거의 알림일 경우 제거 시도
                         for a in range(1, 4):
                             try:
