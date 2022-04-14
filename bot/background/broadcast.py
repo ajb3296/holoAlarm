@@ -72,9 +72,8 @@ async def send_msg(bot, name, post):
                 # 썸네일 설정
                 embed.set_image(url=post[4])
                 embed.set_footer(text=BOT_NAME_TAG_VER)
+                msg = await target_channel.send(embed=embed)
                 if target_channel.type == discord.ChannelType.news:
-                    await target_channel.publish()
-                else:
-                    await target_channel.send(embed=embed)
-            except:
-                pass
+                    await msg.publish()
+            except Exception as e:
+                print(f"Broadcast error : {e}")
