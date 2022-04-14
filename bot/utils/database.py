@@ -89,11 +89,11 @@ class scheduleDB:
             return all_db[-1]
 
 class channelDataDB:
-    def channel_status_set(id: int, status: str):
+    def channel_status_set(id: int, status: str, language: str):
         # Create table if it doesn't exist
         conn = sqlite3.connect(channel_db_path, isolation_level=None)
         c = conn.cursor()
-        c.execute(f"CREATE TABLE IF NOT EXISTS broadcastChannel (id integer PRIMARY KEY, onoff text)")
+        c.execute(f"CREATE TABLE IF NOT EXISTS broadcastChannel (id integer PRIMARY KEY, onoff text, language text)")
         try:
             c.execute("SELECT * FROM broadcastChannel WHERE id=:id", {"id": id})
             a = c.fetchone()
@@ -101,10 +101,10 @@ class channelDataDB:
             a = None
         if a is None:
             # add channel set
-            c.execute(f"INSERT INTO broadcastChannel VALUES('{id}', '{status}')")
+            c.execute(f"INSERT INTO broadcastChannel VALUES('{id}', '{status}', '{language}')")
         else:
             # modify channel set
-            c.execute("UPDATE broadcastChannel SET onoff=:onoff WHERE id=:id", {"onoff": status, 'id': id})
+            c.execute("UPDATE broadcastChannel SET onoff=:onoff, language=:language WHERE id=:id", {"onoff": status, "language": language, 'id': id})
         conn.close()
     
     def get_on_channel():
@@ -123,6 +123,18 @@ class channelDataDB:
             if channel[1] == "on":
                 on_channel.append(channel[0])
         return on_channel
+    
+    def get_database_from_id(id: int):
+        conn = sqlite3.connect(channel_db_path, isolation_level=None)
+        c = conn.cursor()
+        try:
+            c.execute(f"SELECT * FROM broadcastChannel WHERE id=:Id", {"Id": id})
+        except sqlite3.OperationalError:
+            conn.close()
+            return None
+        temp = c.fetchone()
+        conn.close()
+        return temp
 
 if __name__ == "__main__":
     schedule_db_path = "holo.db"

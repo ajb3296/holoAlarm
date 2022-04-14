@@ -4,6 +4,7 @@ import asyncio
 from datetime import datetime
 
 from bot.utils.database import *
+from bot.utils.language import i18n
 from bot import LOGGER, BOT_NAME_TAG_VER, color_code
 
 async def broadcast(bot):
@@ -62,10 +63,10 @@ async def send_msg(bot, name, post):
             try:
                 if target_channel.guild.id == 866120502354116649 and role != None:
                     await target_channel.send(f"{role} {name} - {post[5]}")
-                embed=discord.Embed(title=post[5], description=f"", color=color)
-                embed.add_field(name="버튜버", value=name, inline=False)
-                embed.add_field(name="방송시간", value=f"<t:{post[2]}>", inline=False)
-                embed.add_field(name="링크", value=post[3], inline=False)
+                embed=discord.Embed(title=post[5], description="", color=color)
+                embed.add_field(name=i18n(channel_id, "broadcast", "버튜버"), value=name, inline=False)
+                embed.add_field(name=i18n(channel_id, "broadcast", "방송 시간"), value=f"<t:{post[2]}>", inline=False)
+                embed.add_field(name=i18n(channel_id, "broadcast", "링크"), value=post[3], inline=False)
                 # 유튜버 프로필 설정
                 embed.set_thumbnail(url=post[6])
                 # 썸네일 설정
