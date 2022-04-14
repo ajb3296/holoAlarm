@@ -15,13 +15,14 @@ async def broadcast(bot):
         now_datetime = datetime.now().timestamp()
 
         for table in table_list:
-            latest_data[table] = scheduleDB.get_latest_data(table)
+            latest_data[table] = scheduleDB.get_database(table)
 
         # 테이블 체크
         for table in table_list:
             table_data = scheduleDB.get_database(table)
 
             if table_data is not None:
+                print(latest_data)
                 # 테이블 내부 데이터 시간 체크 후 알림 전송
                 for data in table_data:
                     # 현재보다 알림할 시간이 크다면
