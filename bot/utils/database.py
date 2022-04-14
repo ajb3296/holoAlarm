@@ -62,7 +62,7 @@ class scheduleDB:
         table_list = cursor.fetchall()
         cursor.close()
         tables = []
-        for table in tables:
+        for table in table_list:
             tables.append(table[0])
         return tables
 
