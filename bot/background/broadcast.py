@@ -22,7 +22,6 @@ async def broadcast(bot):
             table_data = scheduleDB.get_database(table)
 
             if table_data is not None:
-                print(latest_data)
                 # 테이블 내부 데이터 시간 체크 후 알림 전송
                 for data in table_data:
                     # 현재보다 알림할 시간이 크다면
@@ -43,15 +42,15 @@ async def send_msg(bot, name, post):
         # 홀로 컬러데이터 가져오기
         with open(f"bot/data/holo.json") as f:
             holo_color = json.loads(f)
-            holo_color = holo_color[post[name]]
-            try:
-                color = int(str(holo_color['color']).replace("#", ""), 0)
-            except:
-                color = color_code
-            try:
-                role  = f"<@${int(holo_color['id'])}>"
-            except:
-                role = None
+        holo_color = holo_color[post[name]]
+        try:
+            color = int(str(holo_color['color']).replace("#", ""), 0)
+        except:
+            color = color_code
+        try:
+            role  = f"<@${int(holo_color['id'])}>"
+        except:
+            role = None
 
         for channel_id in channel_id_list:
             target_channel = bot.get_channel(channel_id)
