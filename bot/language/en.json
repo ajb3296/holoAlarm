@@ -1,0 +1,37 @@
+{
+  "broadcast": {
+    "버튜버": "Vtuber",
+    "방송 시간": "Broadcast hours",
+    "링크": "Hyperlink",
+    "알림": "Notification"
+  },
+
+  "help": {
+    "기본적인 명령어": "General commands",
+    "봇에 대한 정보를 알려드립니다.": "Provide information about the bot.",
+    "당신이 타 서버의 관리자라면 저를 해당 서버에 초대할 수 있습니다.": "You can invite me to your server if you are a staff of the server.",
+    "서버의 업타임을 알려드립니다.": "Provide the uptime of the server.",
+    "핑 속도를 측정합니다.": "Measure the ping.",
+    "알람 명령어": "Notification commands",
+    "해당 채널의 알람 상태를 알려드립니다.": "Provides the notification status of the selected channel",
+    "해당 채널에 알람을 설정하거나 해제합니다. 이는 서버의 관리자만이 사용할 수 있습니다.": "Turns on/off the notification of the channel. Only staffs can use this feature.",
+    "도움말": "Help",
+    "안녕하세요. 전 {bot_name} 입니다. 아래에 있는 명령어들을 이용해 도움말을 보세요.": "Hello. I am {bot_name}. Try out the commands below for more information.",
+    "기본적인 명령어들을 알려드립니다.": "Lists the general commands.",
+    "홀로라이브 스케쥴 알람에 관한 명령어들을 보내드립니다.": "Provides commands related to Hololive schedules."
+  },
+
+  "other": {
+    "초대링크": "Invite link",
+    "봇을 초대할 다른 서버의 관리자라면 [링크]({link})를 클릭하면 됩니다.": "If you are a staff of another server, click the [link]({link}) to invite."
+  },
+
+  "alarm_onoff": {
+    "이 명령어는 서버의 관리자만이 사용할 수 있습니다!": "This command is only for staffs!",
+    "이 채널에서 알람을 켰습니다.": "Notifications have been enabled in this channel.",
+    "이 채널에서 알람을 껐습니다.": "Notifications have been disabled in this channel.",
+    "이 채널에서 알람이 켜져있습니다.": "Notifications are enabled in this channel.",
+    "이 채널에서 알람이 꺼져있습니다.": "Notifications are disabled in this channel.",
+    "채널 알람 상태": "Channel notification status"
+  }
+}

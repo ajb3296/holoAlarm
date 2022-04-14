@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from discord.commands import slash_command, Option
 
-from bot import LOGGER, BOT_NAME_TAG_VER, color_code, OWNERS, EXTENSIONS, DebugServer
+from bot import LOGGER, BOT_NAME_TAG_VER, color_code, OWNERS, EXTENSIONS
 from bot.utils.language import i18n
 
 class Help (commands.Cog) :
