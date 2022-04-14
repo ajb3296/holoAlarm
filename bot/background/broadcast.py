@@ -61,7 +61,7 @@ async def send_msg(bot, name, post):
             target_channel = bot.get_channel(channel_id)
             try:
                 if target_channel.guild.id == 866120502354116649 and role != None:
-                    await target_channel.send(role)
+                    await target_channel.send(f"{role} {name} - {post[5]}")
                 embed=discord.Embed(title=post[5], description=f"", color=color)
                 embed.add_field(name="버튜버", value=name, inline=False)
                 embed.add_field(name="방송시간", value=f"<t:{post[2]}>", inline=False)
