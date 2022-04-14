@@ -61,9 +61,9 @@ async def send_msg(bot, name, post):
             target_channel = bot.get_channel(channel_id)
             try:
                 embed=discord.Embed(title=post[5], description=f"", color=color)
-                embed.add_field(name="링크", value=post[3], inline=False)
                 embed.add_field(name="버튜버", value=name, inline=False)
                 embed.add_field(name="방송시간", value=f"<t:{post[2]}>", inline=False)
+                embed.add_field(name="링크", value=post[3], inline=False)
                 if target_channel.guild.id == 866120502354116649:
                     embed.add_field(name="알림", value=role, inline=False)
                 # 유튜버 프로필 설정
