@@ -22,3 +22,7 @@ class Development(Config):
 ```
 `sample_config.py`를 참고하여 만들면 된다.<br>
 3. `python3 -m bot` 명령어로 실행한다.
+
+# ETC
+
+VC관련 오픈소스 : (VoiceMaster-Discord-Bot)[https://github.com/SamSanai/VoiceMaster-Discord-Bot]

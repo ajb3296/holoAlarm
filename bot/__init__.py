@@ -1,6 +1,7 @@
 import os
 import sys
 import logging
+import sqlite3
 
 # Bot version
 BOT_VER = "V.1.0"
@@ -36,3 +37,13 @@ for file in os.listdir("bot/cogs"):
         EXTENSIONS.append(file.replace(".py", ""))
 
 BOT_NAME_TAG_VER = f"{BOT_NAME}{BOT_TAG} | {BOT_VER}"
+
+VOICE_DB = 'voice.db'
+
+conn = sqlite3.connect(VOICE_DB, isolation_level=None)
+c = conn.cursor()
+c.execute(f"CREATE TABLE IF NOT EXISTS guild (guildID integer, ownerID integer, voiceChannelID integer, voiceCategoryID integer)")
+c.execute(f"CREATE TABLE IF NOT EXISTS guildSettings (guildID integer, channelName text, channelLimit integer)")
+c.execute(f"CREATE TABLE IF NOT EXISTS userSettings (userID integer, channelName text, channelLimit integer)")
+c.execute(f"CREATE TABLE IF NOT EXISTS voiceChannel (userID integer, voiceID integer)")
+conn.close()

@@ -5,12 +5,12 @@ import sqlite3
 from discord.commands import slash_command, Option
 
 from bot.utils.language import i18n
-from bot import LOGGER, BOT_NAME_TAG_VER, color_code, OWNERS
+from bot import LOGGER, BOT_NAME_TAG_VER, color_code, OWNERS, VOICE_DB
 
 class Voice(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.voice_db = 'voice.db'
+        self.voice_db = VOICE_DB
 
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
@@ -72,8 +72,8 @@ class Voice(commands.Cog):
                     await channel2.delete()
                     await asyncio.sleep(3)
                     c.execute('DELETE FROM voiceChannel WHERE userID=?', (id,))
-            except:
-                pass
+            except Exception as e:
+                print(e)
         conn.close()
 
     @slash_command()
@@ -97,8 +97,8 @@ class Voice(commands.Cog):
                 embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "모든 설정이 완료되었으며 사용할 준비가 되었습니다!")}', color=color_code)
                 embed.set_footer(text=BOT_NAME_TAG_VER)
                 await ctx.respond(embed=embed)
-            except:
-                embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "이름을 제대로 입력하지 않았습니다.")}', description=i18n(ctx.author.id, "voice", "`/setup` 명령어를 다시 사용하세요!"), color=color_code)
+            except Exception as e:
+                embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "이름을 제대로 입력하지 않았습니다.")} {e}', description=i18n(ctx.author.id, "voice", "`/setup` 명령어를 다시 사용하세요!"), color=color_code)
                 embed.set_footer(text=BOT_NAME_TAG_VER)
                 await ctx.respond(embed=embed)
 
@@ -246,7 +246,7 @@ class Voice(commands.Cog):
             channelID = voice[0]
             channel = self.bot.get_channel(channelID)
             await channel.edit(user_limit = limit)
-            embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "채널 리미트를 {limit} 로 설정했어요").format(limit=limit)}', color=color_code)
+            embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "채널 리미트를 {limit} 으로 설정했어요").format(limit=limit)}', color=color_code)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.respond(embed=embed)
 
@@ -275,7 +275,7 @@ class Voice(commands.Cog):
             channelID = voice[0]
             channel = self.bot.get_channel(channelID)
             await channel.edit(name = name)
-            embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "채널명을 {name} 으로 변경했어요!").format(name=name)}', color=color_code)
+            embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "채널명을 {name} (으)로 변경했어요!").format(name=name)}', color=color_code)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.respond(embed=embed)
 
