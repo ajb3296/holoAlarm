@@ -42,7 +42,7 @@ class scheduleDB:
         temp = c.fetchall()
         conn.close()
         return temp
-    
+
     def get_database_from_id(table_name, id):
         # id로 데이터베이스 가져오기
         conn = sqlite3.connect(schedule_db_path, isolation_level=None)
@@ -55,7 +55,7 @@ class scheduleDB:
         temp = c.fetchone()
         conn.close()
         return temp
-    
+
     def get_table_list():
         # 테이블 리스트 가져오기
         conn = sqlite3.connect(schedule_db_path)
@@ -106,7 +106,7 @@ class channelDataDB:
             # modify channel set
             c.execute("UPDATE broadcastChannel SET onoff=:onoff, language=:language WHERE id=:id", {"onoff": status, "language": language, 'id': id})
         conn.close()
-    
+
     def get_on_channel():
         # 모든 알람설정 되어있는 채널 가져오기
         conn = sqlite3.connect(channel_db_path, isolation_level=None)
@@ -123,7 +123,7 @@ class channelDataDB:
             if channel[1] == "on":
                 on_channel.append(channel[0])
         return on_channel
-    
+
     def get_database_from_id(id: int):
         conn = sqlite3.connect(channel_db_path, isolation_level=None)
         c = conn.cursor()
