@@ -87,12 +87,12 @@ class Voice(commands.Cog):
             new_cat = await ctx.guild.create_category_channel(category_name)
             try:
                 channel = await ctx.guild.create_voice_channel(voice_channel_name, category=new_cat)
-                c.execute("SELECT * FROM guild WHERE guildID = ? AND ownerID=?", (guildID, id))
+                c.execute("SELECT * FROM guild WHERE guildID = ? AND ownerID=?", (guildID, userId))
                 voice=c.fetchone()
                 if voice is None:
-                    c.execute ("INSERT INTO guild VALUES (?, ?, ?, ?)",(guildID,id, channel.id, new_cat.id))
+                    c.execute ("INSERT INTO guild VALUES (?, ?, ?, ?)",(guildID, userId, channel.id, new_cat.id))
                 else:
-                    c.execute ("UPDATE guild SET guildID = ?, ownerID = ?, voiceChannelID = ?, voiceCategoryID = ? WHERE guildID = ?",(guildID,id,channel.id,new_cat.id, guildID))
+                    c.execute ("UPDATE guild SET guildID = ?, ownerID = ?, voiceChannelID = ?, voiceCategoryID = ? WHERE guildID = ?",(guildID, userId, channel.id, new_cat.id, guildID))
 
                 embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "모든 설정이 완료되었으며 사용할 준비가 되었습니다!")}', color=color_code)
                 embed.set_footer(text=BOT_NAME_TAG_VER)
@@ -326,4 +326,4 @@ class Voice(commands.Cog):
 
 def setup(bot):
     bot.add_cog(Voice(bot))
-    LOGGER.info('About loaded!')
+    LOGGER.info('Voice loaded!')
