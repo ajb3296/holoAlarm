@@ -83,7 +83,7 @@ class Voice(commands.Cog):
         c = conn.cursor()
         guildID = ctx.guild.id
         userId = ctx.author.id
-        if userId == ctx.guild.owner_id or userId in OWNERS:
+        if ctx.author.guild_permissions.manage_messages or userId in OWNERS:
             new_cat = await ctx.guild.create_category_channel(category_name)
             try:
                 channel = await ctx.guild.create_voice_channel(voice_channel_name, category=new_cat)
@@ -103,7 +103,7 @@ class Voice(commands.Cog):
                 await ctx.respond(embed=embed)
 
         else:
-            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "서버 소유자만 봇을 설정할 수 있습니다!")}', color=color_code)
+            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "서버 관리자만 봇을 설정할 수 있습니다!")}', color=color_code)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.respond(embed=embed)
         conn.close()
@@ -113,7 +113,7 @@ class Voice(commands.Cog):
         """ 기본 채널 리미트 설정 """
         conn = sqlite3.connect(self.voice_db, isolation_level=None)
         c = conn.cursor()
-        if ctx.author.id == ctx.guild.owner.id or ctx.author.id in OWNERS:
+        if ctx.author.guild_permissions.manage_messages or ctx.author.id in OWNERS:
             c.execute("SELECT * FROM guildSettings WHERE guildID = ?", (ctx.guild.id,))
             voice=c.fetchone()
             if voice is None:
@@ -125,7 +125,7 @@ class Voice(commands.Cog):
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.respond(embed=embed)
         else:
-            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "서버 소유자만 봇을 설정할 수 있습니다!")}', color=color_code)
+            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "서버 관리자만 봇을 설정할 수 있습니다!")}', color=color_code)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.respond(embed=embed)
         conn.close()
