@@ -2,7 +2,7 @@ import discord
 import asyncio
 from discord.ext import commands
 import sqlite3
-from discord.commands import slash_command, Option
+from discord.commands import slash_command
 
 from bot.utils.language import i18n
 from bot import LOGGER, BOT_NAME_TAG_VER, color_code, OWNERS, VOICE_DB
