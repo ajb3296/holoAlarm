@@ -14,7 +14,7 @@ class Other (commands.Cog) :
     @slash_command()
     async def invite(self, ctx):
         """ 봇 초대 링크 전송 """
-        link = f'https://discord.com/api/oauth2/authorize?client_id={self.bot.user.id}&permissions=414464789568&scope=bot%20applications.commands'
+        link = f'https://discord.com/api/oauth2/authorize?client_id={self.bot.user.id}&permissions=8&scope=bot%20applications.commands' # 알리미 기능만 사용시 : 414464789568
         embed=discord.Embed(title="초대링크", description=i18n(ctx.author.id, "other", "봇을 초대할 다른 서버의 관리자라면 [링크]({link})를 클릭하면 됩니다.").format(link=link), color=color_code)
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.respond(embed=embed)
