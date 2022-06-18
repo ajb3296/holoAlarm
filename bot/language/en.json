@@ -48,7 +48,7 @@
         "채널 알람 상태": "Channel notification status"
     },
     "voice": {
-        "채널을 너무 빨리 생성하면 15초의 재사용 대기시간이 발생합니다!": "Creating channels too quickly you've been put on a 15 second cooldown!",
+        "채널을 너무 빨리 생성하면 {sec}초의 재사용 대기시간이 발생합니다!": "Creating channels too quickly you've been put on a {sec} second cooldown!",
         "모든 설정이 완료되었으며 사용할 준비가 되었습니다!": "You are all setup and ready to go!",
         "이름을 제대로 입력하지 않았습니다.": "You didn't enter the names properly.",
         "`/setup` 명령어를 다시 사용하세요!": "Use `.voice setup` again!",

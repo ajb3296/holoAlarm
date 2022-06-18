@@ -11,6 +11,7 @@ class Voice(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.voice_db = VOICE_DB
+        self.ratelimit = 5
 
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
@@ -30,16 +31,16 @@ class Voice(commands.Cog):
                     if cooldown is None:
                         pass
                     else:
-                        embed=discord.Embed(title=f':warning: {i18n(member.id, "voice", "채널을 너무 빨리 생성하면 15초의 재사용 대기시간이 발생합니다!")}', color=color_code)
+                        embed=discord.Embed(title=f':warning: {i18n(member.id, "voice", "채널을 너무 빨리 생성하면 {sec}초의 재사용 대기시간이 발생합니다!")}'.format(sec=self.ratelimit), color=color_code)
                         embed.set_footer(text=BOT_NAME_TAG_VER)
                         await member.send(embed=embed)
-                        await asyncio.sleep(15)
+                        await asyncio.sleep(self.ratelimit)
                     c.execute("SELECT voiceCategoryID FROM guild WHERE guildID = ?", (guildID,))
                     voice=c.fetchone()
                     c.execute("SELECT channelName, channelLimit FROM userSettings WHERE userID = ?", (member.id,))
                     setting=c.fetchone()
                     c.execute("SELECT channelLimit FROM guildSettings WHERE guildID = ?", (guildID,))
-                    guildSetting=c.fetchone()
+                    guildSetting = c.fetchone()
                     if setting is None:
                         name = f"{member.name}'s channel"
                         if guildSetting is None:
@@ -59,12 +60,12 @@ class Voice(commands.Cog):
                     categoryID = voice[0]
                     id = member.id
                     category = self.bot.get_channel(categoryID)
-                    channel2 = await member.guild.create_voice_channel(name,category=category)
+                    channel2 = await member.guild.create_voice_channel(name, category = category)
                     channelID = channel2.id
                     await member.move_to(channel2)
-                    await channel2.set_permissions(self.bot.user, connect=True,read_messages=True)
+                    await channel2.set_permissions(self.bot.user, connect=True, read_messages=True)
                     await channel2.edit(name= name, user_limit = limit)
-                    c.execute("INSERT INTO voiceChannel VALUES (?, ?)", (id,channelID))
+                    c.execute("INSERT INTO voiceChannel VALUES (?, ?)", (id, channelID))
                     
                     def check(a,b,c):
                         return len(channel2.members) == 0
