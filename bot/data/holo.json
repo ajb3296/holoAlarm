@@ -1,222 +1,277 @@
 {
 	"ときのそら": {
 		"id": "866122537631744020",
-		"color" : "#353bc2"
+		"color" : "#353bc2",
+		"message" : ""
 	},
 	"ロボ子さん": {
 		"id": "866122544427171890",
-		"color" : "#f3b7b7"
+		"color" : "#f3b7b7",
+		"message" : ""
 	},
 	"星街すいせい": {
 		"id": "866122547274973214",
-		"color" : "#3498db"
+		"color" : "#3498db",
+		"message" : ""
 	},
 	"さくらみこ": {
 		"id": "866122548877983774",
-		"color" : "#f34f94"
+		"color" : "#f34f94",
+		"message" : ""
 	},
 	"AZKi": {
 		"id": "866122549858664479",
-		"color" : "#612840"
+		"color" : "#612840",
+		"message" : ""
 	},
 	"夜空メル": {
 		"id": "866122551352492062" ,
-		"color" : "#f1c40f"
+		"color" : "#f1c40f",
+		"message" : ""
 	},
 	"アキロゼ": {
 		"id": "866123681062715462",
-		"color" : "#f5e08c"
+		"color" : "#f5e08c",
+		"message" : ""
 	},
 	"赤井はあと": {
 		"id": "866122915778527273",
-		"color" : "#ba8f0d"
+		"color" : "#ba8f0d",
+		"message" : ""
 	},
 	"白上フブキ": {
 		"id": "866122552233426994",
-		"color" : "#dfdfdf"
+		"color" : "#dfdfdf",
+		"message" : ""
 	},
 	"夏色まつり": {
 		"id": "866130696119779379",
-		"color" : "#5a5853"
+		"color" : "#5a5853",
+		"message" : ""
 	},
 	"湊あくあ": {
 		"id": "866122917019123733",
-		"color" : "#c89ed3"
+		"color" : "#c89ed3",
+		"message" : ""
 	},
 	"紫咲シオン": {
 		"id": "866122919859322890",
-		"color" : "#71368a"
+		"color" : "#71368a",
+		"message" : ""
 	},
 	"百鬼あやめ": {
 		"id": "866122555516387339",
-		"color" : "#e91e63"
+		"color" : "#e91e63",
+		"message" : ""
 	},
 	"癒月ちょこ": {
 		"id": "866124874811834408",
-		"color" : "#c0bda0"
+		"color" : "#c0bda0",
+		"message" : ""
 	},
 	"大空スバル": {
 		"id": "866125060384489522",
-		"color" : "#b6d445"
+		"color" : "#b6d445",
+		"message" : ""
 	},
 	"大神ミオ": {
 		"id": "866125063078150144",
-		"color" : "#010101"
+		"color" : "#010101",
+		"message" : ""
 	},
 	"猫又おかゆ": {
 		"id": "866125064154644520",
-		"color" : "#fedbfc"
+		"color" : "#fedbfc",
+		"message" : ""
 	},
 	"戌神ころね": {
 		"id": "866125478544801802",
-		"color" : "#915443"
+		"color" : "#915443",
+		"message" : ""
 	},
 	"兎田ぺこら": {
 		"id": "866125684493385748",
-		"color" : "#bcdbff"
+		"color" : "#bcdbff",
+		"message" : ""
 	},
 	"不知火フレア": {
 		"id": "866125685307605022",
-		"color" : "#c27c0e"
+		"color" : "#c27c0e",
+		"message" : ""
 	},
 	"白銀ノエル": {
 		"id": "866125686385541120",
-		"color" : "#7c7b7b"
+		"color" : "#7c7b7b",
+		"message" : ""
 	},
 	"宝鐘マリン": {
 		"id": "866125690466074635",
-		"color" : "#e74c3c"
+		"color" : "#e74c3c",
+		"message" : ""
 	},
 	"天音かなた": {
 		"id": "866126322250022932",
-		"color" : "#1a46ff"
+		"color" : "#1a46ff",
+		"message" : ""
 	},
 	"角巻わため": {
 		"id": "866126325270052874",
-		"color" : "#fff99e"
+		"color" : "#fff99e",
+		"message" : ""
 	},
 	"常闇トワ": {
 		"id": "866122553336922152",
-		"color" : "#9b59b6"
+		"color" : "#9b59b6",
+		"message" : ""
 	},
 	"姫森ルーナ": {
 		"id": "866126331918024725",
-		"color" : "#f5abff"
+		"color" : "#f5abff",
+		"message" : ""
 	},
 	"雪花ラミィ": {
 		"id": "866127114817372202",
-		"color" : "#7ad7e4"
+		"color" : "#7ad7e4",
+		"message" : ""
 	},
 	"桃鈴ねね": {
 		"id": "866127115678253087",
-		"color" : "#f5d39d"
+		"color" : "#f5d39d",
+		"message" : ""
 	},
 	"獅白ぼたん": {
 		"id": "866127116654608424",
-		"color" : "#cbcbcb"
+		"color" : "#cbcbcb",
+		"message" : ""
 	},
 	"尾丸ポルカ": {
 		"id": "866127117422821396",
-		"color" : "#ffd47d"
+		"color" : "#ffd47d",
+		"message" : ""
 	},
 	"ラプラス": {
 		"id": "913692395412013086",
-		"color" : "#8860a4"
+		"color" : "#8860a4",
+		"message" : ""
 	},
 	"鷹嶺ルイ": {
 		"id": "913693500191694848",
-		"color" : "#e0aaaa"
+		"color" : "#e0aaaa",
+		"message" : ""
 	},
 	"博衣こより": {
 		"id": "913709490216513577",
-		"color" : "#ffccf1"
+		"color" : "#ffccf1",
+		"message" : ""
 	},
 	"沙花叉クロヱ": {
 		"id": "913710314015576074",
-		"color" : "#9c1c1c"
+		"color" : "#9c1c1c",
+		"message" : ""
 	},
 	"風真いろは": {
 		"id": "913710317496827965",
-		"color" : "#f7edd9"
+		"color" : "#f7edd9",
+		"message" : ""
 	},
 	"Risu": {
 		"id": "866127903976325130",
-		"color" : "#a84300"
+		"color" : "#a84300",
+		"message" : ""
 	},
 	"Moona": {
 		"id": "866127963153236033",
-		"color" : "#9c83d3"
+		"color" : "#9c83d3",
+		"message" : ""
 	},
 	"Iofi": {
 		"id": "866127964403269652",
-		"color" : "#dbd3dc"
+		"color" : "#dbd3dc",
+		"message" : ""
 	},
 	"Ollie": {
 		"id": "866127965318676510",
-		"color" : "#ff0049"
+		"color" : "#ff0049",
+		"message" : ""
 	},
 	"Anya": {
 		"id": "866128296923758623",
-		"color" : "#66594f"
+		"color" : "#66594f",
+		"message" : ""
 	},
 	"Reine": {
 		"id": "866128399561785376",
-		"color" : "#ada5b3"
+		"color" : "#ada5b3",
+		"message" : ""
 	},
 	"Zeta": {
 		"id": "956937741747241000",
-		"color" : "#919191"
+		"color" : "#919191",
+		"message" : ""
 	},
 	"Kaela": {
 		"id": "956937820461744178",
-		"color" : "#ddc564"
+		"color" : "#ddc564",
+		"message" : ""
 	},
 	"Kobo": {
 		"id": "956937829290750122",
-		"color" : "#8eb7c4"
+		"color" : "#8eb7c4",
+		"message" : ""
 	},
 	"Calli": {
 		"id": "866128524988645386",
-		"color" : "#ffcdf8"
+		"color" : "#ffcdf8",
+		"message" : ""
 	},
 	"Kiara": {
 		"id": "866128637961830440",
-		"color" : "#ff6001"
+		"color" : "#ff6001",
+		"message" : ""
 	},
 	"Ina": {
 		"id": "866128638621253683",
-		"color" : "#633e76"
+		"color" : "#633e76",
+		"message" : ""
 	},
 	"Gura": {
 		"id": "866128639980077086",
-		"color" : "#8eb7c4"
+		"color" : "#8eb7c4",
+		"message" : ""
 	},
 	"Amelia": {
 		"id": "866128643427926016",
-		"color" : "#e6c94c"
+		"color" : "#e6c94c",
+		"message" : ""
 	},
 	"IRyS": {
 		"id": "866128645675810828",
-		"color" : "#6f1558"
+		"color" : "#6f1558",
+		"message" : ""
 	},
 	"Sana": {
 		"id": "879383640059031603",
-		"color" : "#f2d7c4"
+		"color" : "#f2d7c4",
+		"message" : ""
 	},
 	"Fauna": {
 		"id": "879383603446947880",
-		"color" : "#d6eeba"
+		"color" : "#d6eeba",
+		"message" : ""
 	},
 	"Kronii": {
 		"id": "879383621465698354",
-		"color" : "#256cf0"
+		"color" : "#256cf0",
+		"message" : ""
 	},
 	"Mumei": {
 		"id": "879383624913412156",
-		"color" : "#c5aa9b"
+		"color" : "#c5aa9b",
+		"message" : ""
 	},
 	"Baelz": {
 		"id": "879383619783753768",
-		"color" : "#e5443c"
+		"color" : "#e5443c",
+		"message" : ""
 	}
 }

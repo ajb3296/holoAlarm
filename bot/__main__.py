@@ -52,9 +52,7 @@ class Bot (commands.Bot) :
             return
         await self.process_commands (message)
 
-intents = discord.Intents.default()
-intents.messages = True
-intents.guilds = True
+intents = discord.Intents().all()
 
-bot = Bot ()
+bot = Bot()
 bot.run(TOKEN)
