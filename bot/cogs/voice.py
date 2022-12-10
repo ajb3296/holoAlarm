@@ -2,6 +2,7 @@ import discord
 import asyncio
 from discord.ext import commands
 import sqlite3
+import traceback
 from discord.commands import slash_command
 
 from bot.utils.language import i18n
@@ -67,14 +68,14 @@ class Voice(commands.Cog):
                     await channel2.edit(name= name, user_limit = limit)
                     c.execute("INSERT INTO voiceChannel VALUES (?, ?)", (id, channelID))
                     
-                    def check(a,b,c):
+                    def check(a, b, c):
                         return len(channel2.members) == 0
                     await self.bot.wait_for('voice_state_update', check=check)
                     await channel2.delete()
                     await asyncio.sleep(3)
                     c.execute('DELETE FROM voiceChannel WHERE userID=?', (id,))
             except Exception as e:
-                print(e)
+                print(traceback.format_exc())
         conn.close()
 
     @slash_command()
@@ -135,7 +136,7 @@ class Voice(commands.Cog):
 
     @setup.error
     async def info_error(self, ctx, error):
-        print(error)
+        print(traceback.format_exc())
 
     @slash_command()
     async def lock(self, ctx):
@@ -274,7 +275,7 @@ class Voice(commands.Cog):
         c = conn.cursor()
         userId = ctx.author.id
         c.execute("SELECT voiceID FROM voiceChannel WHERE userID = ?", (userId,))
-        voice=c.fetchone()
+        voice = c.fetchone()
         if voice is None:
             embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "채널의 주인이 아닙니다!")}', color=color_code)
             embed.set_footer(text=BOT_NAME_TAG_VER)
@@ -319,9 +320,8 @@ class Voice(commands.Cog):
             else:
                 for data in channel.members:
                     if data.id == voice[0]:
-                        owner = ctx.guild.get_member(voice [0])
-                        await ctx.channel.send(f"{ctx.author.mention} This channel is already owned by {owner.mention}!")
-                        embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "이 음성채널은 이미 {owner}님의 소유입니다!").format(owner.name)}', color=color_code)
+                        owner = ctx.guild.get_member(voice[0])
+                        embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "이 음성채널은 이미 {owner}님의 소유입니다!").format(owner=owner.name)}', color=color_code)
                         embed.set_footer(text=BOT_NAME_TAG_VER)
                         await ctx.followup.send(embed=embed)
                         x = True
