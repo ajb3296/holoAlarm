@@ -15,7 +15,7 @@ class scheduleDB:
         conn = sqlite3.connect(schedule_db_path, isolation_level=None)
         c = conn.cursor()
 
-        # add se board data
+        # add broadcast data
         for holo in holo_list:
             c.execute(f"CREATE TABLE IF NOT EXISTS {holo[0]} (id integer PRIMARY KEY AUTOINCREMENT, datetime text, unixdatetime int, url text, thumbnail text, title text, iconImage text)")
             try:
@@ -25,7 +25,7 @@ class scheduleDB:
                 temp = None
             if temp is None:
                 # 없으면 추가
-                c.execute(f"INSERT INTO {holo[0]} (datetime, unixdatetime, url, thumbnail, title, iconImage) VALUES('{holo[1][0]}', {int(holo[1][1])}, '{holo[1][2]}', '{holo[1][3]}', '{holo[1][4]}', '{holo[1][5]}')")
+                c.execute(f"INSERT INTO {holo[0]} (datetime, unixdatetime, url, thumbnail, title, iconImage) VALUES(?, ?, ?, ?, ?, ?)", (holo[1][0], int(holo[1][1]), holo[1][2], holo[1][3], holo[1][4], holo[1][5]))
             elif temp[5] != holo[1][4]:
                 c.execute(f"UPDATE {holo[0]} SET thumbnail=:thumbnail, url=:url, title=:title WHERE datetime=:datetime LIMIT 1", {"url": holo[1][2], "thumbnail": holo[1][3], "title": holo[1][4], 'datetime': holo[1][0]})
         conn.close()
