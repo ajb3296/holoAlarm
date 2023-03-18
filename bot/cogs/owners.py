@@ -53,7 +53,7 @@ class Owners(commands.Cog):
     async def alarmchlist(self, ctx):
         """ 알람이 켜져있는 모든 채널 리스트를 출력합니다. """
         page = 10
-        alarm_ch_list = channelDataDB.get_on_channel()
+        alarm_ch_list = channelDataDB().get_on_channel("broadcastChannel")
         # 페이지 지정값이 없고, 총 서버수가 10 이하일 경우
         if len(alarm_ch_list) <= page:
             embed = discord.Embed(title = f"알람이 켜져있는 채넣", description=f"**{len(alarm_ch_list)}개**의 채널", color=color_code)

@@ -29,8 +29,3 @@ async def read_vroz():
         except Exception:
             print(traceback.format_exc())
         await asyncio.sleep(60)
-
-if __name__ == "__main__":
-    import requests
-    RSS_LINK = "https://vroz.cc/rss.xml"
-    read_vroz()

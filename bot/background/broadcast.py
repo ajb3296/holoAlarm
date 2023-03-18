@@ -45,7 +45,7 @@ async def broadcast(bot):
         await asyncio.sleep(30)
 
 async def send_msg(bot, name, post):
-    channel_id_list = channelDataDB().get_on_channel()
+    channel_id_list = channelDataDB().get_on_channel("broadcastChannel")
     _, _, unixtime, link, thumbnail, title, icon = post
     if channel_id_list != None:
         # 홀로 컬러데이터 가져오기

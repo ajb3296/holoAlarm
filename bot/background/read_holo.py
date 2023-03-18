@@ -33,8 +33,3 @@ async def read_holo():
         except Exception:
             print(traceback.format_exc())
         await asyncio.sleep(1800)
-
-if __name__ == "__main__":
-    import requests
-    schedule_link = "https://schedule.hololive.tv/api/list"
-    read_holo()

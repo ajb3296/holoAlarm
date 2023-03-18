@@ -9,7 +9,7 @@ def i18n(id, table, text):
     userdata_db_path = "userdata.db"
 
     if table == "broadcast":
-        data = channelDataDB.get_database_from_id(id)
+        data = channelDataDB().get_database_from_id("broadcastChannel", id)
         language = data[2]
 
         with open(f"bot/language/{language}.json") as f:
