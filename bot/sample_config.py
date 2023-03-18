@@ -20,6 +20,8 @@ class Config(object):
     schedule_db_path = "holo.db"
     channel_db_path = "channel.db"
 
+    VROZ_LINK = "https://vroz.cc/rss.xml"
+
 class Production(Config):
     LOGGER = False
 

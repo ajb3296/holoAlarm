@@ -5,8 +5,8 @@ from discord.commands import slash_command, Option
 from bot import LOGGER, BOT_NAME_TAG_VER, color_code, OWNERS, EXTENSIONS
 from bot.utils.language import i18n
 
-class Help (commands.Cog) :
-    def __init__ (self, bot) :
+class Help(commands.Cog):
+    def __init__ (self, bot):
         self.bot = bot
 
     @slash_command()
@@ -61,6 +61,6 @@ class Help (commands.Cog) :
             await ctx.respond(embed=embed)
             
 
-def setup (bot) :
-    bot.add_cog (Help (bot))
+def setup(bot):
+    bot.add_cog (Help(bot))
     LOGGER.info('Help loaded!')

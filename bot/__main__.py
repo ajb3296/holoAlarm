@@ -5,6 +5,8 @@ from discord.ext import commands
 from bot.background.read_holo import read_holo
 from bot.background.broadcast import broadcast
 from bot.background.reset_db import reset_db
+from bot.background.read_vroz import read_vroz
+from bot.background.broadcast_vroz import broadcast_vroz
 from bot.utils.database import channelDataDB
 
 from bot import LOGGER, TOKEN, EXTENSIONS, BOT_NAME_TAG_VER
@@ -26,17 +28,17 @@ async def status_task():
         except Exception:
             pass
 
-class Bot (commands.Bot) :
-    def __init__ (self) :
+class Bot (commands.Bot):
+    def __init__ (self):
         super().__init__ (
             intents=intents
         )
         self.remove_command("help")
 
-        for i in EXTENSIONS :
+        for i in EXTENSIONS:
             self.load_extension("bot.cogs." + i)
 
-    async def on_ready (self) :
+    async def on_ready (self):
         LOGGER.info(BOT_NAME_TAG_VER)
         await self.change_presence(
             activity = discord.Game ("/help : 도움말"),
@@ -46,8 +48,10 @@ class Bot (commands.Bot) :
         bot.loop.create_task(read_holo())
         bot.loop.create_task(broadcast(bot))
         bot.loop.create_task(reset_db())
+        bot.loop.create_task(read_vroz())
+        bot.loop.create_task(broadcast_vroz(bot))
 
-    async def on_message (self, message) :
+    async def on_message (self, message):
         if message.author.bot:
             return
         await self.process_commands (message)

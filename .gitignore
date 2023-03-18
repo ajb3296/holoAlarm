@@ -3,6 +3,7 @@ config.py
 test.py
 *.db
 *.png
+temp
 
 
 # Byte-compiled / optimized / DLL files

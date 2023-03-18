@@ -11,13 +11,13 @@ for file in os.listdir("bot/language"):
     if file.endswith(".json"):
         lanPack.append(file.replace(".json", ""))
 
-class Language (commands.Cog) :
-    def __init__ (self, bot) :
+class Language (commands.Cog):
+    def __init__ (self, bot):
         self.bot = bot
         self.userdata_db_path = "userdata.db"
 
     @slash_command()
-    async def language (self, ctx, lang : Option(str, "Choose language pack.", choices=lanPack)) :
+    async def language (self, ctx, lang : Option(str, "Choose language pack.", choices=lanPack)):
         """ Apply the language pack. """
         if lang is None:
             files = ""
@@ -53,6 +53,6 @@ class Language (commands.Cog) :
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.respond(embed=embed)
 
-def setup (bot) :
+def setup (bot):
     bot.add_cog (Language (bot))
     LOGGER.info('Language loaded!')

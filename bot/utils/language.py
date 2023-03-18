@@ -1,6 +1,5 @@
 import os
 import json
-import re
 import sqlite3
 
 from bot.utils.database import channelDataDB

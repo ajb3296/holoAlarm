@@ -7,8 +7,8 @@ from discord.commands import slash_command
 from bot.utils.language import i18n
 from bot import LOGGER, BOT_NAME_TAG_VER, color_code
 
-class Other (commands.Cog) :
-    def __init__ (self, bot) :
+class Other(commands.Cog):
+    def __init__ (self, bot):
         self.bot = bot
 
     @slash_command()
@@ -27,6 +27,6 @@ class Other (commands.Cog) :
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.respond(embed=embed)
 
-def setup (bot) :
-    bot.add_cog (Other (bot))
+def setup(bot):
+    bot.add_cog (Other(bot))
     LOGGER.info('Other loaded!')

@@ -29,6 +29,7 @@ BOT_ID           = Config.BOT_ID
 color_code       = Config.color_code
 schedule_link    = Config.schedule_link
 schedule_db_path = Config.schedule_db_path
+VROZ_LINK        = Config.VROZ_LINK
 channel_db_path  = Config.channel_db_path
 
 EXTENSIONS = []
