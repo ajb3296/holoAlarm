@@ -30,6 +30,7 @@ async def broadcast_vroz(bot):
         await asyncio.sleep(30)
 
 async def send_msg(bot, article_id, title, description, thumbnail):
+    LOGGER.info(f"Send msg : {title}")
     channel_id_list = channelDataDB().get_on_channel("VROZ")
     if channel_id_list != None:
         for channel_id in channel_id_list:
