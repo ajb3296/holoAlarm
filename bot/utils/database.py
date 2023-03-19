@@ -107,7 +107,7 @@ class VrozDB:
             title, description, article_id, thumbnail = vroz
             cur.execute(f"CREATE TABLE IF NOT EXISTS {self.table_name} (id integer PRIMARY KEY AUTOINCREMENT, article_id integer, title text, description text, thumbnail text)")
             try:
-                cur.execute(f"SELECT * FROM {self.table_name} WHERE article_id=:article_id", {"id": article_id})
+                cur.execute(f"SELECT * FROM {self.table_name} WHERE article_id=:article_id", {"article_id": article_id})
                 temp = cur.fetchone()
             except:
                 temp = None
