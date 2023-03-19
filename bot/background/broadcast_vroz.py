@@ -6,8 +6,9 @@ from bot.utils.database import *
 from bot import LOGGER, BOT_NAME_TAG_VER, color_code
 
 async def broadcast_vroz(bot):
-    latest_data = ""
     await asyncio.sleep(5)
+    table_list = VrozDB().get_database()
+    latest_data = table_list[-1][1]
 
     while True:
         try:
