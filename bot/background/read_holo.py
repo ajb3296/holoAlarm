@@ -28,7 +28,7 @@ async def read_holo():
                 if unixtime > now_unix_time:
                     goto_DB.append((temp['name'].replace("'", "''").replace(" ", "_"), (temp['datetime'].replace("'", "''"), unixtime, temp['url'].replace("'", "''"), temp['thumbnail'].replace("'", "''"), temp['title'].replace("'", "''"), temp['talent']['iconImageUrl'].replace("'", "''"))))
 
-            scheduleDB.set_database(goto_DB)
+            scheduleDB().set_database(goto_DB)
 
         except Exception:
             print(traceback.format_exc())

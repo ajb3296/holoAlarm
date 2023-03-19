@@ -17,15 +17,15 @@ async def broadcast(bot):
 
     while True:
         try:
-            table_list = scheduleDB.get_table_list()
+            table_list = scheduleDB().get_table_list()
             now_datetime = datetime.now().timestamp()
 
             for table in table_list:
-                latest_data[table] = scheduleDB.get_database(table)
+                latest_data[table] = scheduleDB().get_database(table)
 
             # 테이블 체크
             for table in table_list:
-                table_data = scheduleDB.get_database(table)
+                table_data = scheduleDB().get_database(table)
 
                 if table_data is not None:
                     # 테이블 내부 데이터 시간 체크 후 알림 전송
@@ -34,7 +34,7 @@ async def broadcast(bot):
                         if data[2] <= now_datetime:
                             LOGGER.info(f"Send msg : {data}")
                             await send_msg(bot, table, data)
-                            status = scheduleDB.delete_db(table, data[0])
+                            status = scheduleDB().delete_db(table, data[0])
                             if status is True:
                                 LOGGER.info(f"Data removal successful : {data}")
                             else:

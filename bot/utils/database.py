@@ -9,7 +9,11 @@ import sqlite3
 from bot import schedule_db_path, channel_db_path
 
 class scheduleDB:
-    def set_database(holo_list):
+    def __init__(self):
+        pass
+
+    def set_database(self, holo_list: list) -> None:
+        """ 홀로라이브 스케줄 데이터베이스에 추가 """
         # Create table if it doesn't exist
         # (name, (datetime, unixdatetime, url, thumbnail, title, talent.iconImageUrl))
         con = sqlite3.connect(schedule_db_path, isolation_level=None)
@@ -30,7 +34,7 @@ class scheduleDB:
                 cur.execute(f"UPDATE {holo[0]} SET thumbnail=:thumbnail, url=:url, title=:title WHERE datetime=:datetime LIMIT 1", {"url": holo[1][2], "thumbnail": holo[1][3], "title": holo[1][4], 'datetime': holo[1][0]})
         con.close()
 
-    def get_database(table_name):
+    def get_database(self, table_name: str) -> list | None:
         # 모든 데이터베이스 가져오기
         con = sqlite3.connect(schedule_db_path, isolation_level=None)
         cur = con.cursor()
@@ -43,8 +47,8 @@ class scheduleDB:
         con.close()
         return temp
 
-    def get_database_from_id(table_name, id):
-        # id로 데이터베이스 가져오기
+    def get_database_from_id(self, table_name: str, id: int) -> list | None:
+        """ id로 데이터베이스 가져오기 """
         con = sqlite3.connect(schedule_db_path, isolation_level=None)
         cur = con.cursor()
         try:
@@ -56,8 +60,8 @@ class scheduleDB:
         con.close()
         return temp
 
-    def get_table_list():
-        # 테이블 리스트 가져오기
+    def get_table_list(self) -> list:
+        """ 테이블 리스트 가져오기 """
         con = sqlite3.connect(schedule_db_path)
         cur = con.cursor()
         cur.execute("SELECT name FROM sqlite_master WHERE type='table';")
@@ -68,8 +72,8 @@ class scheduleDB:
             tables.append(table[0])
         return tables
 
-    def delete_db(table_name, id):
-        # 데이터 제거
+    def delete_db(self, table_name: str, id: int):
+        """ id 값으로 데이터 제거 """
         con = sqlite3.connect(schedule_db_path, isolation_level=None)
         cur = con.cursor()
         try:
@@ -80,9 +84,9 @@ class scheduleDB:
         con.close()
         return True
 
-    def get_latest_data(table_name):
-        # 마지막 행 리턴
-        all_db = scheduleDB.get_database(table_name)
+    def get_latest_data(self, table_name: str) -> list | None:
+        """ 마지막 행 리턴 """
+        all_db = scheduleDB().get_database(table_name)
         if all_db is None:
             return None
         else:
@@ -94,6 +98,7 @@ class VrozDB:
         self.table_name = "vroz"
 
     def set_database(self, vroz_list: list[tuple[str, str, int, str]]) -> None:
+        """ vroz 데이터베이스에 추가 """
         con = sqlite3.connect(self.db_path, isolation_level=None)
         cur = con.cursor()
 
@@ -111,8 +116,8 @@ class VrozDB:
                 cur.execute(f"INSERT INTO {self.table_name} (article_id, title, description, thumbnail) VALUES(?, ?, ?, ?)", (article_id, title, description, thumbnail))
         con.close()
     
-    def get_database(self):
-        # 모든 데이터베이스 가져오기
+    def get_database(self) -> list[tuple[int, int, str, str, str]] | None:
+        """ 모든 데이터베이스 가져오기 """
         con = sqlite3.connect(self.db_path, isolation_level=None)
         cur = con.cursor()
         try:
@@ -165,6 +170,7 @@ class channelDataDB:
         return on_channel
 
     def get_database_from_id(self, table: str, id: int):
+        """ id로 데이터 가져오기 """
         con = sqlite3.connect(channel_db_path, isolation_level=None)
         cur = con.cursor()
         try:
@@ -180,4 +186,4 @@ if __name__ == "__main__":
     schedule_db_path = "holo.db"
     channel_db_path = "channel.db"
     post_list = [(80000, '제목1', '글쓴이1'), (80001, '제목2', '글쓴이2')]
-    scheduleDB.set_database(post_list)
+    scheduleDB().set_database(post_list)

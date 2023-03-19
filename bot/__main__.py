@@ -20,11 +20,12 @@ async def status_task():
             )
             await asyncio.sleep(10)
             channel_list = channelDataDB().get_on_channel("broadcastChannel")
-            await bot.change_presence(
-                activity = discord.Game (f"{len(channel_list)}개의 채널에 알림을 보내주고 있어요!"),
-                status = discord.Status.online,
-            )
-            await asyncio.sleep(10)
+            if channel_list is not None:
+                await bot.change_presence(
+                    activity = discord.Game (f"{len(channel_list)}개의 채널에 알림을 보내주고 있어요!"),
+                    status = discord.Status.online,
+                )
+                await asyncio.sleep(10)
         except Exception:
             pass
 

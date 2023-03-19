@@ -1,8 +1,9 @@
 import os
 import sqlite3
 import discord
+from discord import option
 from discord.ext import commands
-from discord.commands import slash_command, Option
+from discord.commands import slash_command
 
 from bot import LOGGER, BOT_NAME_TAG_VER, color_code
 
@@ -17,7 +18,8 @@ class Language (commands.Cog):
         self.userdata_db_path = "userdata.db"
 
     @slash_command()
-    async def language (self, ctx, lang : Option(str, "Choose language pack.", choices=lanPack)):
+    @option("help_option", description="Choose language pack.", choices=lanPack)
+    async def language (self, ctx, lang: str):
         """ Apply the language pack. """
         if lang is None:
             files = ""

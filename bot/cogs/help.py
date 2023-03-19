@@ -1,6 +1,7 @@
 import discord
+from discord import option
 from discord.ext import commands
-from discord.commands import slash_command, Option
+from discord.commands import slash_command
 
 from bot import LOGGER, BOT_NAME_TAG_VER, color_code, OWNERS, EXTENSIONS
 from bot.utils.language import i18n
@@ -10,7 +11,8 @@ class Help(commands.Cog):
         self.bot = bot
 
     @slash_command()
-    async def help (self, ctx, *, help_option : Option(str, "알고 싶은 메뉴를 선택하세요.", choices=["GENERAL", "ALARM", "VOICE"])) :
+    @option("help_option", description="알고 싶은 메뉴를 선택하세요.", choices=["GENERAL", "ALARM", "VOICE"])
+    async def help(self, ctx, *, help_option: str) :
         """ 도움말 """
         if not help_option == None:
             help_option = help_option.upper()
