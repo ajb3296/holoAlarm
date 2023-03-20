@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands, pages
 from discord.commands import slash_command
 
-from bot import LOGGER, BOT_NAME_TAG_VER, color_code, DebugServer, BOT_NAME
+from bot import LOGGER, BOT_NAME_TAG_VER, COLOR_CODE, DebugServer, BOT_NAME
 from bot.utils.database import channelDataDB
 
 class Owners(commands.Cog):
@@ -16,7 +16,7 @@ class Owners(commands.Cog):
         page = 10
         # 페이지 지정값이 없고, 총 서버수가 10 이하일 경우
         if len(self.bot.guilds) <= page:
-            embed = discord.Embed(title = f"{BOT_NAME} (이)가 들어가 있는 서버목록", description=f"**{len(self.bot.guilds)}개**의 서버", color=color_code)
+            embed = discord.Embed(title = f"{BOT_NAME} (이)가 들어가 있는 서버목록", description=f"**{len(self.bot.guilds)}개**의 서버", color=COLOR_CODE)
             srvr = str()
             for i in self.bot.guilds:
                 srvr = srvr + f"**{i}** - **{i.member_count}명**\n"
@@ -56,7 +56,7 @@ class Owners(commands.Cog):
         alarm_ch_list = channelDataDB().get_on_channel("broadcastChannel")
         # 페이지 지정값이 없고, 총 서버수가 10 이하일 경우
         if len(alarm_ch_list) <= page:
-            embed = discord.Embed(title = f"알람이 켜져있는 채넣", description=f"**{len(alarm_ch_list)}개**의 채널", color=color_code)
+            embed = discord.Embed(title = f"알람이 켜져있는 채넣", description=f"**{len(alarm_ch_list)}개**의 채널", color=COLOR_CODE)
             srvr = str()
             for i in alarm_ch_list:
                 target_channel = self.bot.get_channel(i)
@@ -98,7 +98,7 @@ class Owners(commands.Cog):
             server_id = ctx.guild.id
         else:
             if self.bot.guilds not in server_id:
-                embed=discord.Embed(title=f':warning: 해당 서버에 들어가있지 않습니다.', color=color_code)
+                embed=discord.Embed(title=f':warning: 해당 서버에 들어가있지 않습니다.', color=COLOR_CODE)
                 embed.set_footer(text=BOT_NAME_TAG_VER)
                 await ctx.followup.send(embed=embed)
 

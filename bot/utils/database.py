@@ -6,37 +6,40 @@ id, datetime, unixdatetime, url, thumbnail, title, iconImage
 
 import sqlite3
 
-from bot import schedule_db_path, channel_db_path
+from bot import SCHEDULE_DB_PATH, CHANNEL_DB_PATH
 
 class scheduleDB:
     def __init__(self):
-        pass
+        self.db_path = SCHEDULE_DB_PATH
 
-    def set_database(self, holo_list: list) -> None:
+    def set_database(self, holo_list: list[tuple[str, tuple[str, int, str, str, str, str]]]) -> None:
         """ 홀로라이브 스케줄 데이터베이스에 추가 """
         # Create table if it doesn't exist
         # (name, (datetime, unixdatetime, url, thumbnail, title, talent.iconImageUrl))
-        con = sqlite3.connect(schedule_db_path, isolation_level=None)
+        con = sqlite3.connect(self.db_path, isolation_level=None)
         cur = con.cursor()
 
         # add broadcast data
         for holo in holo_list:
-            cur.execute(f"CREATE TABLE IF NOT EXISTS {holo[0]} (id integer PRIMARY KEY AUTOINCREMENT, datetime text, unixdatetime int, url text, thumbnail text, title text, iconImage text)")
+            name, holotemp = holo
+            datetime_text, unixdatetime, url, thumbnail, title, icon_url = holotemp
+
+            cur.execute(f"CREATE TABLE IF NOT EXISTS {name} (id integer PRIMARY KEY AUTOINCREMENT, datetime text, unixdatetime int, url text, thumbnail text, title text, iconImage text)")
             try:
-                cur.execute(f"SELECT * FROM {holo[0]} WHERE datetime=:datetime", {"datetime": holo[1][0]})
+                cur.execute(f"SELECT * FROM {name} WHERE datetime=:datetime", {"datetime": datetime_text})
                 temp = cur.fetchone()
             except:
                 temp = None
             if temp is None:
                 # 없으면 추가
-                cur.execute(f"INSERT INTO {holo[0]} (datetime, unixdatetime, url, thumbnail, title, iconImage) VALUES(?, ?, ?, ?, ?, ?)", (holo[1][0], int(holo[1][1]), holo[1][2], holo[1][3], holo[1][4], holo[1][5]))
-            elif temp[5] != holo[1][4]:
-                cur.execute(f"UPDATE {holo[0]} SET thumbnail=:thumbnail, url=:url, title=:title WHERE datetime=:datetime LIMIT 1", {"url": holo[1][2], "thumbnail": holo[1][3], "title": holo[1][4], 'datetime': holo[1][0]})
+                cur.execute(f"INSERT INTO {name} (datetime, unixdatetime, url, thumbnail, title, iconImage) VALUES(?, ?, ?, ?, ?, ?)", (datetime_text, int(unixdatetime), url, thumbnail, title, icon_url))
+            elif temp[5] != title:
+                cur.execute(f"UPDATE {name} SET thumbnail=:thumbnail, url=:url, title=:title WHERE datetime=:datetime LIMIT 1", {"url": url, "thumbnail": thumbnail, "title": title, 'datetime': datetime_text})
         con.close()
 
-    def get_database(self, table_name: str) -> list | None:
-        # 모든 데이터베이스 가져오기
-        con = sqlite3.connect(schedule_db_path, isolation_level=None)
+    def get_database(self, table_name: str) -> list[tuple] | None:
+        """ 테이블의 모든 데이터 가져오기 """
+        con = sqlite3.connect(self.db_path, isolation_level=None)
         cur = con.cursor()
         try:
             cur.execute(f"SELECT * FROM {table_name} ORDER BY id")
@@ -47,9 +50,9 @@ class scheduleDB:
         con.close()
         return temp
 
-    def get_database_from_id(self, table_name: str, id: int) -> list | None:
-        """ id로 데이터베이스 가져오기 """
-        con = sqlite3.connect(schedule_db_path, isolation_level=None)
+    def get_database_from_id(self, table_name: str, id: int) -> tuple | None:
+        """ id로 데이터 가져오기 """
+        con = sqlite3.connect(self.db_path, isolation_level=None)
         cur = con.cursor()
         try:
             cur.execute(f"SELECT * FROM {table_name} WHERE id=:Id", {"Id": id})
@@ -62,7 +65,7 @@ class scheduleDB:
 
     def get_table_list(self) -> list:
         """ 테이블 리스트 가져오기 """
-        con = sqlite3.connect(schedule_db_path)
+        con = sqlite3.connect(self.db_path)
         cur = con.cursor()
         cur.execute("SELECT name FROM sqlite_master WHERE type='table';")
         table_list = cur.fetchall()
@@ -74,7 +77,7 @@ class scheduleDB:
 
     def delete_db(self, table_name: str, id: int):
         """ id 값으로 데이터 제거 """
-        con = sqlite3.connect(schedule_db_path, isolation_level=None)
+        con = sqlite3.connect(self.db_path, isolation_level=None)
         cur = con.cursor()
         try:
             cur.execute(f"DELETE FROM {table_name} WHERE id = :ID",{"ID":id})
@@ -131,12 +134,12 @@ class VrozDB:
 
 class channelDataDB:
     def __init__(self):
-        pass
+        self.db_path = CHANNEL_DB_PATH
 
     def channel_status_set(self, table: str, id: int, status: str, language: str):
         """ 채널 상태 설정 """
         # Create table if it doesn't exist
-        con = sqlite3.connect(channel_db_path, isolation_level=None)
+        con = sqlite3.connect(self.db_path, isolation_level=None)
         cur = con.cursor()
         cur.execute(f"CREATE TABLE IF NOT EXISTS {table} (id integer PRIMARY KEY, onoff text, language text)")
         try:
@@ -154,7 +157,7 @@ class channelDataDB:
 
     def get_on_channel(self, table: str):
         """ 모든 알람설정 되어있는 채널 가져오기 """
-        con = sqlite3.connect(channel_db_path, isolation_level=None)
+        con = sqlite3.connect(self.db_path, isolation_level=None)
         cur = con.cursor()
         try:
             cur.execute(f"SELECT * FROM {table} ORDER BY id")
@@ -171,7 +174,7 @@ class channelDataDB:
 
     def get_database_from_id(self, table: str, id: int):
         """ id로 데이터 가져오기 """
-        con = sqlite3.connect(channel_db_path, isolation_level=None)
+        con = sqlite3.connect(self.db_path, isolation_level=None)
         cur = con.cursor()
         try:
             cur.execute(f"SELECT * FROM {table} WHERE id=:Id", {"Id": id})

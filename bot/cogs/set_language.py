@@ -5,7 +5,7 @@ from discord import option
 from discord.ext import commands
 from discord.commands import slash_command
 
-from bot import LOGGER, BOT_NAME_TAG_VER, color_code
+from bot import LOGGER, BOT_NAME_TAG_VER, COLOR_CODE
 
 lanPack = []
 for file in os.listdir("bot/language"):
@@ -27,12 +27,12 @@ class Language (commands.Cog):
                 if file.endswith(".json"):
                     files = files + file.replace(".json", "") + "\n"
 
-            embed=discord.Embed(title="Language packs", description=files, color=color_code)
+            embed=discord.Embed(title="Language packs", description=files, color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             return await ctx.respond(embed=embed)
 
         if not os.path.exists(f"bot/language/{lang}.json"):
-            embed=discord.Embed(title="The language file does not exist!", color=color_code)
+            embed=discord.Embed(title="The language file does not exist!", color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             return await ctx.respond(embed=embed)
 
@@ -45,11 +45,11 @@ class Language (commands.Cog):
         if a is None:
             # add user data
             c.execute(f"INSERT INTO userdata VALUES({ctx.author.id}, '{lang}')")
-            embed=discord.Embed(title="Language setting complete!", description=f"{lang}", color=color_code)
+            embed=discord.Embed(title="Language setting complete!", description=f"{lang}", color=COLOR_CODE)
         else:
             # modify user data
             c.execute("UPDATE userdata SET language=:language WHERE id=:id", {"language": lang, 'id': ctx.author.id})
-            embed=discord.Embed(title="Language setting complete!", description=f"{a[1]} --> {lang}", color=color_code)
+            embed=discord.Embed(title="Language setting complete!", description=f"{a[1]} --> {lang}", color=COLOR_CODE)
         conn.close()
 
         embed.set_footer(text=BOT_NAME_TAG_VER)

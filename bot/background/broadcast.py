@@ -9,7 +9,7 @@ from colorthief import ColorThief
 
 from bot.utils.database import *
 from bot.utils.language import i18n
-from bot import LOGGER, BOT_NAME_TAG_VER, color_code
+from bot import LOGGER, BOT_NAME_TAG_VER, COLOR_CODE
 
 async def broadcast(bot):
     latest_data = {}
@@ -48,7 +48,7 @@ async def send_msg(bot, name, post):
     channel_id_list = channelDataDB().get_on_channel("broadcastChannel")
     _, _, unixtime, link, thumbnail, title, icon = post
     if channel_id_list != None:
-        # 홀로 컬러데이터 가져오기
+        # 홀로섭 역할 데이터 가져오기
         with open(f"bot/data/holo.json") as f:
             data = f.read()
         holo_color = json.loads(data)
@@ -70,7 +70,7 @@ async def send_msg(bot, name, post):
             color = int(hex_color, 16)
         except Exception:
             print(traceback.format_exc())
-            color = color_code
+            color = COLOR_CODE
 
         for channel_id in channel_id_list:
             target_channel = bot.get_channel(channel_id)

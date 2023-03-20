@@ -14,11 +14,11 @@ class Config(object):
     BOT_TAG = "#" # 태그
     BOT_ID = 123456789 # 봇 아이디
 
-    color_code = 0x62e0ec # 색상코드
+    COLOR_CODE = 0x62e0ec # 색상코드
 
-    schedule_link = "https://schedule.hololive.tv/api/list"
-    schedule_db_path = "holo.db"
-    channel_db_path = "channel.db"
+    SCHEDULE_LINK = "https://schedule.hololive.tv/api/list"
+    SCHEDULE_DB_PATH = "holo.db"
+    CHANNEL_DB_PATH = "channel.db"
 
     VROZ_LINK = "https://vroz.cc/rss.xml"
 

@@ -26,11 +26,11 @@ DebugServer      = Config.DebugServer
 BOT_NAME         = Config.BOT_NAME
 BOT_TAG          = Config.BOT_TAG
 BOT_ID           = Config.BOT_ID
-color_code       = Config.color_code
-schedule_link    = Config.schedule_link
-schedule_db_path = Config.schedule_db_path
+COLOR_CODE       = Config.COLOR_CODE
+SCHEDULE_LINK    = Config.SCHEDULE_LINK
+SCHEDULE_DB_PATH = Config.SCHEDULE_DB_PATH
 VROZ_LINK        = Config.VROZ_LINK
-channel_db_path  = Config.channel_db_path
+CHANNEL_DB_PATH  = Config.CHANNEL_DB_PATH
 
 EXTENSIONS = []
 for file in os.listdir("bot/cogs"):

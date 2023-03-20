@@ -23,7 +23,11 @@ async def read_vroz():
                 if thumbnail[0:4] != "http":
                     thumbnail = "https://vroz.cc" + thumbnail
 
-                goto_DB.append((title, description, article_id, thumbnail))
+                goto_DB.append((title.replace("'", "''"),
+                                description.replace("'", "''"),
+                                article_id,
+                                thumbnail))
+
             VrozDB().set_database(goto_DB)
 
         except Exception:

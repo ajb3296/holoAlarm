@@ -1,9 +1,12 @@
+import os
 import discord
 import asyncio
 import traceback
+import urllib.request
+from colorthief import ColorThief
 
 from bot.utils.database import *
-from bot import LOGGER, BOT_NAME_TAG_VER, color_code
+from bot import LOGGER, BOT_NAME_TAG_VER, COLOR_CODE
 
 async def broadcast_vroz(bot):
     await asyncio.sleep(5)
@@ -32,12 +35,31 @@ async def broadcast_vroz(bot):
 
 async def send_msg(bot, article_id, title, description, thumbnail):
     LOGGER.info(f"Send msg : {title}")
+    # 채널 리스트 가져오기
     channel_id_list = channelDataDB().get_on_channel("VROZ")
+
+    # 썸네일 저장할 임시폴더 생성
+    temp_folder = "temp_vroz"
+    if not os.path.exists(temp_folder):
+        os.mkdir(temp_folder)
+    
+    # 색상 추출
+    try:
+        urllib.request.urlretrieve(thumbnail, f"{temp_folder}/temp.jpg")
+        dominant_color = ColorThief(f"{temp_folder}/temp.jpg").get_color(quality=1)
+        hex_color = hex(dominant_color[0]) + hex(dominant_color[1])[2:] + hex(dominant_color[2])[2:]
+        color = int(hex_color, 16)
+    except Exception:
+        print(traceback.format_exc())
+        color = COLOR_CODE
+
     if channel_id_list != None:
+
+        # 채널 아이디 별로 메시지 보냄
         for channel_id in channel_id_list:
             target_channel = bot.get_channel(channel_id)
             try:
-                embed=discord.Embed(title=title, description=description, color=color_code)
+                embed=discord.Embed(title=title, description=description, color=color)
                 embed.add_field(name="링크", value=f"https://vroz.cc/v/{article_id}", inline=False)
                 # 썸네일 설정
                 embed.set_image(url=thumbnail)

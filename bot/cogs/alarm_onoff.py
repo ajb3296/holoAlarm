@@ -6,7 +6,7 @@ from discord.commands import slash_command
 
 from bot.utils.database import channelDataDB
 from bot.utils.language import i18n
-from bot import LOGGER, BOT_NAME_TAG_VER, color_code, OWNERS
+from bot import LOGGER, BOT_NAME_TAG_VER, COLOR_CODE, OWNERS
 
 lanPack = []
 for file in os.listdir("bot/language"):
@@ -44,7 +44,7 @@ class AlarmSet(commands.Cog):
             msg_title = f":green_circle: {i18n(ctx.author.id, 'alarm_onoff', '이 채널에서 알람을 켰습니다')}"
         else:
             msg_title = f":red_circle: {i18n(ctx.author.id, 'alarm_onoff', '이 채널에서 알람을 껐습니다')}"
-        embed=discord.Embed(title="알람 설정", description=msg_title, color=color_code)
+        embed=discord.Embed(title="알람 설정", description=msg_title, color=COLOR_CODE)
 
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.respond(embed=embed)
@@ -62,7 +62,7 @@ class AlarmSet(commands.Cog):
             msg_title = f":green_circle: {i18n(ctx.author.id, 'alarm_onoff', '이 채널에서 알람이 켜져있습니다.')}"
         else:
             msg_title = f":red_circle: {i18n(ctx.author.id, 'alarm_onoff', '이 채널에서 알람이 꺼져있습니다.')}"
-        embed=discord.Embed(title=i18n(ctx.author.id, 'alarm_onoff', '채널 알람 상태'), description=msg_title, color=color_code)
+        embed=discord.Embed(title=i18n(ctx.author.id, 'alarm_onoff', '채널 알람 상태'), description=msg_title, color=COLOR_CODE)
 
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.respond(embed=embed)

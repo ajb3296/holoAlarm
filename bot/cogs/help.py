@@ -3,7 +3,7 @@ from discord import option
 from discord.ext import commands
 from discord.commands import slash_command
 
-from bot import LOGGER, BOT_NAME_TAG_VER, color_code, OWNERS, EXTENSIONS
+from bot import LOGGER, BOT_NAME_TAG_VER, COLOR_CODE, OWNERS, EXTENSIONS
 from bot.utils.language import i18n
 
 class Help(commands.Cog):
@@ -17,7 +17,7 @@ class Help(commands.Cog):
         if not help_option == None:
             help_option = help_option.upper()
         if help_option == "GENERAL" or help_option == "일반":
-            embed=discord.Embed(title=i18n(ctx.author.id, "help", "기본적인 명령어"), color=color_code)
+            embed=discord.Embed(title=i18n(ctx.author.id, "help", "기본적인 명령어"), color=COLOR_CODE)
 
             if "about" in EXTENSIONS:
                 embed.add_field(name=f"/about",  value=f">>> {i18n(ctx.author.id, 'help', '봇에 대한 정보를 알려드립니다.')}", inline=True)
@@ -33,14 +33,14 @@ class Help(commands.Cog):
             await ctx.respond(embed=embed)
 
         elif help_option == "ALARM" or help_option == "알람":
-            embed=discord.Embed(title=i18n(ctx.author.id, "help", "알람 명령어"), color=color_code)
+            embed=discord.Embed(title=i18n(ctx.author.id, "help", "알람 명령어"), color=COLOR_CODE)
             embed.add_field(name=f"/alarmstatus",         value=i18n(ctx.author.id, 'help', "해당 채널의 알람 상태를 알려드립니다."), inline=False)
             embed.add_field(name=f"/alarmset [*ON/OFF*]", value=i18n(ctx.author.id, 'help', "해당 채널에 알람을 설정하거나 해제합니다. 이는 서버의 관리자만이 사용할 수 있습니다."), inline=False)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.respond(embed=embed)
 
         elif help_option == "VOICE" or help_option == "음성채널":
-            embed=discord.Embed(title=i18n(ctx.author.id, "help", "음성채널 명령어"), color=color_code)
+            embed=discord.Embed(title=i18n(ctx.author.id, "help", "음성채널 명령어"), color=COLOR_CODE)
             embed.add_field(name=f"/setup category_name:카테고리명, voice_channel_name:음성채널명", value=i18n(ctx.author.id, 'help', "최초 설정. 이는 서버의 관리자만이 사용할 수 있습니다."), inline=False)
             if ctx.guild.id != 866120502354116649:
                 embed.add_field(name=f"/setlimit num:숫자",   value=i18n(ctx.author.id, 'help', "기초 음성채널 인원 리미트 설정. 이는 서버의 관리자만이 사용할 수 있습니다."), inline=False)
@@ -55,7 +55,7 @@ class Help(commands.Cog):
             await ctx.respond(embed=embed)
 
         else:
-            embed=discord.Embed(title=i18n(ctx.author.id, "help", "도움말"), description=i18n(ctx.author.id, 'help', "안녕하세요. 전 {bot_name} 입니다. 아래에 있는 명령어들을 이용해 도움말을 보세요.").format(bot_name=self.bot.user.name), color=color_code)
+            embed=discord.Embed(title=i18n(ctx.author.id, "help", "도움말"), description=i18n(ctx.author.id, 'help', "안녕하세요. 전 {bot_name} 입니다. 아래에 있는 명령어들을 이용해 도움말을 보세요.").format(bot_name=self.bot.user.name), color=COLOR_CODE)
             embed.add_field(name=f"/help general", value=f">>> {i18n(ctx.author.id, 'help', '기본적인 명령어들을 알려드립니다.')}", inline=False)
             embed.add_field(name=f"/help alarm",   value=f">>> {i18n(ctx.author.id, 'help', '홀로라이브 스케쥴 알람에 관한 명령어들을 보내드립니다.')}", inline=False)
             embed.add_field(name=f"/help voice",   value=f">>> {i18n(ctx.author.id, 'help', '음성채널에 관한 명령어들을 보내드립니다.')}", inline=False)

@@ -6,7 +6,7 @@ import traceback
 from discord.commands import slash_command
 
 from bot.utils.language import i18n
-from bot import LOGGER, BOT_NAME_TAG_VER, color_code, OWNERS, VOICE_DB
+from bot import LOGGER, BOT_NAME_TAG_VER, COLOR_CODE, OWNERS, VOICE_DB
 
 class Voice(commands.Cog):
     def __init__(self, bot):
@@ -32,7 +32,7 @@ class Voice(commands.Cog):
                     if cooldown is None:
                         pass
                     else:
-                        embed=discord.Embed(title=f':warning: {i18n(member.id, "voice", "채널을 너무 빨리 생성하면 {sec}초의 재사용 대기시간이 발생합니다!")}'.format(sec=self.ratelimit), color=color_code)
+                        embed=discord.Embed(title=f':warning: {i18n(member.id, "voice", "채널을 너무 빨리 생성하면 {sec}초의 재사용 대기시간이 발생합니다!")}'.format(sec=self.ratelimit), color=COLOR_CODE)
                         embed.set_footer(text=BOT_NAME_TAG_VER)
                         await member.send(embed=embed)
                         await asyncio.sleep(self.ratelimit)
@@ -97,16 +97,16 @@ class Voice(commands.Cog):
                 else:
                     c.execute ("UPDATE guild SET guildID = ?, ownerID = ?, voiceChannelID = ?, voiceCategoryID = ? WHERE guildID = ?",(guildID, userId, channel.id, new_cat.id, guildID))
 
-                embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "모든 설정이 완료되었으며 사용할 준비가 되었습니다!")}', color=color_code)
+                embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "모든 설정이 완료되었으며 사용할 준비가 되었습니다!")}', color=COLOR_CODE)
                 embed.set_footer(text=BOT_NAME_TAG_VER)
                 await ctx.followup.send(embed=embed)
             except Exception as e:
-                embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "이름을 제대로 입력하지 않았습니다.")} {e}', description=i18n(ctx.author.id, "voice", "`/setup` 명령어를 다시 사용하세요!"), color=color_code)
+                embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "이름을 제대로 입력하지 않았습니다.")} {e}', description=i18n(ctx.author.id, "voice", "`/setup` 명령어를 다시 사용하세요!"), color=COLOR_CODE)
                 embed.set_footer(text=BOT_NAME_TAG_VER)
                 await ctx.followup.send(embed=embed)
 
         else:
-            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "서버 관리자만 봇을 설정할 수 있습니다!")}', color=color_code)
+            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "서버 관리자만 봇을 설정할 수 있습니다!")}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
         conn.close()
@@ -125,11 +125,11 @@ class Voice(commands.Cog):
             else:
                 c.execute("UPDATE guildSettings SET channelLimit = ? WHERE guildID = ?", (num, ctx.guild.id))
 
-            embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "서버의 기본 채널 리미트를 변경했습니다!")}', color=color_code)
+            embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "서버의 기본 채널 리미트를 변경했습니다!")}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
         else:
-            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "서버 관리자만 봇을 설정할 수 있습니다!")}', color=color_code)
+            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "서버 관리자만 봇을 설정할 수 있습니다!")}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
         conn.close()
@@ -148,7 +148,7 @@ class Voice(commands.Cog):
         c.execute("SELECT voiceID FROM voiceChannel WHERE userID = ?", (id,))
         voice=c.fetchone()
         if voice is None:
-            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "채널의 주인이 아닙니다!")}', color=color_code)
+            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "채널의 주인이 아닙니다!")}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
         else:
@@ -156,7 +156,7 @@ class Voice(commands.Cog):
             role = ctx.guild.default_role
             channel = self.bot.get_channel(channelID)
             await channel.set_permissions(role, connect=False)
-            embed=discord.Embed(title=f':lock: {i18n(ctx.author.id, "voice", "음성채널을 잠궜습니다!")}', color=color_code)
+            embed=discord.Embed(title=f':lock: {i18n(ctx.author.id, "voice", "음성채널을 잠궜습니다!")}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
         conn.close()
@@ -171,7 +171,7 @@ class Voice(commands.Cog):
         c.execute("SELECT voiceID FROM voiceChannel WHERE userID = ?", (id,))
         voice=c.fetchone()
         if voice is None:
-            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "채널의 주인이 아닙니다!")}', color=color_code)
+            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "채널의 주인이 아닙니다!")}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
         else:
@@ -179,7 +179,7 @@ class Voice(commands.Cog):
             role = ctx.guild.default_role
             channel = self.bot.get_channel(channelID)
             await channel.set_permissions(role, connect=True)
-            embed=discord.Embed(title=f':unlock: {i18n(ctx.author.id, "voice", "음성채널의 잠금을 풀었습니다!")}', color=color_code)
+            embed=discord.Embed(title=f':unlock: {i18n(ctx.author.id, "voice", "음성채널의 잠금을 풀었습니다!")}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
         
@@ -195,7 +195,7 @@ class Voice(commands.Cog):
         c.execute("SELECT voiceID FROM voiceChannel WHERE userID = ?", (userId,))
         voice=c.fetchone()
         if voice is None:
-            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "채널의 주인이 아닙니다!")}', color=color_code)
+            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "채널의 주인이 아닙니다!")}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
         else:
@@ -203,7 +203,7 @@ class Voice(commands.Cog):
             channel = self.bot.get_channel(channelID)
             await channel.set_permissions(member, connect=True)
 
-            embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "{member}님에게 채널에 접근한 권한을 줬어요!").format(member=member.name)}', color=color_code)
+            embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "{member}님에게 채널에 접근한 권한을 줬어요!").format(member=member.name)}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
         conn.close()
@@ -219,7 +219,7 @@ class Voice(commands.Cog):
         c.execute("SELECT voiceID FROM voiceChannel WHERE userID = ?", (userId,))
         voice=c.fetchone()
         if voice is None:
-            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "채널의 주인이 아닙니다!")}', color=color_code)
+            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "채널의 주인이 아닙니다!")}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
         else:
@@ -233,7 +233,7 @@ class Voice(commands.Cog):
                     await member.move_to(channel2)
             await channel.set_permissions(member, connect=False,read_messages=True)
 
-            embed=discord.Embed(title=f':x: {i18n(ctx.author.id, "voice", "{member}님에게서 채널에 접근한 권한을 뺏었어요!").format(member=member.name)}', color=color_code)
+            embed=discord.Embed(title=f':x: {i18n(ctx.author.id, "voice", "{member}님에게서 채널에 접근한 권한을 뺏었어요!").format(member=member.name)}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
         conn.close()
@@ -247,14 +247,14 @@ class Voice(commands.Cog):
         c.execute("SELECT voiceID FROM voiceChannel WHERE userID = ?", (userId,))
         voice=c.fetchone()
         if voice is None:
-            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "채널의 주인이 아닙니다!")}', color=color_code)
+            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "채널의 주인이 아닙니다!")}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
         else:
             channelID = voice[0]
             channel = self.bot.get_channel(channelID)
             await channel.edit(user_limit = limit)
-            embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "채널 리미트를 {limit} 으로 설정했어요").format(limit=limit)}', color=color_code)
+            embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "채널 리미트를 {limit} 으로 설정했어요").format(limit=limit)}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
 
@@ -277,14 +277,14 @@ class Voice(commands.Cog):
         c.execute("SELECT voiceID FROM voiceChannel WHERE userID = ?", (userId,))
         voice = c.fetchone()
         if voice is None:
-            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "채널의 주인이 아닙니다!")}', color=color_code)
+            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "채널의 주인이 아닙니다!")}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
         else:
             channelID = voice[0]
             channel = self.bot.get_channel(channelID)
             await channel.edit(name = name)
-            embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "채널명을 {name} (으)로 변경했어요!").format(name=name)}', color=color_code)
+            embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "채널명을 {name} (으)로 변경했어요!").format(name=name)}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
 
@@ -306,7 +306,7 @@ class Voice(commands.Cog):
         c = conn.cursor()
         channel = ctx.author.voice.channel
         if channel == None:
-            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "{you}님은 음성채널에 들어가 있지 않습니다!").format(you=ctx.author.name)}', color=color_code)
+            embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "{you}님은 음성채널에 들어가 있지 않습니다!").format(you=ctx.author.name)}', color=COLOR_CODE)
             embed.set_footer(text=BOT_NAME_TAG_VER)
             await ctx.followup.send(embed=embed)
         else:
@@ -314,19 +314,19 @@ class Voice(commands.Cog):
             c.execute("SELECT userID FROM voiceChannel WHERE voiceID = ?", (channel.id,))
             voice=c.fetchone()
             if voice is None:
-                embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "이 음성채널을 소유하실 수 없습니다!")}', color=color_code)
+                embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "이 음성채널을 소유하실 수 없습니다!")}', color=COLOR_CODE)
                 embed.set_footer(text=BOT_NAME_TAG_VER)
                 await ctx.followup.send(embed=embed)
             else:
                 for data in channel.members:
                     if data.id == voice[0]:
                         owner = ctx.guild.get_member(voice[0])
-                        embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "이 음성채널은 이미 {owner}님의 소유입니다!").format(owner=owner.name)}', color=color_code)
+                        embed=discord.Embed(title=f':warning: {i18n(ctx.author.id, "voice", "이 음성채널은 이미 {owner}님의 소유입니다!").format(owner=owner.name)}', color=COLOR_CODE)
                         embed.set_footer(text=BOT_NAME_TAG_VER)
                         await ctx.followup.send(embed=embed)
                         x = True
                 if x == False:
-                    embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "이제 이 음성채널은 {name}님의 것입니다. {name}님 마음대로 관리할 수 있는 겁니다.").format(name=ctx.author.name)}', color=color_code)
+                    embed=discord.Embed(title=f':white_check_mark: {i18n(ctx.author.id, "voice", "이제 이 음성채널은 {name}님의 것입니다. {name}님 마음대로 관리할 수 있는 겁니다.").format(name=ctx.author.name)}', color=COLOR_CODE)
                     embed.set_footer(text=BOT_NAME_TAG_VER)
                     await ctx.followup.send(embed=embed)
                     c.execute("UPDATE voiceChannel SET userID = ? WHERE voiceID = ?", (id, channel.id))
