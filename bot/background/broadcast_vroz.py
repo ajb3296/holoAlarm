@@ -9,6 +9,7 @@ from bot.utils.database import *
 from bot import LOGGER, BOT_NAME_TAG_VER, COLOR_CODE
 
 async def broadcast_vroz(bot):
+    LOGGER.info("Broadcast_vroz start")
     await asyncio.sleep(5)
     table_list = VrozDB().get_database()
     latest_data = table_list[-1][1]
@@ -42,7 +43,7 @@ async def send_msg(bot, article_id, title, description, thumbnail):
     temp_folder = "temp_vroz"
     if not os.path.exists(temp_folder):
         os.mkdir(temp_folder)
-    
+
     # 색상 추출
     try:
         urllib.request.urlretrieve(thumbnail, f"{temp_folder}/temp.jpg")

@@ -3,9 +3,10 @@ import traceback
 from datetime import datetime
 
 from bot import LOGGER
-from bot.utils.database import *
+from bot.utils.database import scheduleDB
 
 async def reset_db():
+    LOGGER.info("Reset_db start")
     await asyncio.sleep(120)
     while True:
         try:

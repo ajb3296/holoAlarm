@@ -45,17 +45,22 @@ class Bot (commands.Bot):
             activity = discord.Game ("/help : 도움말"),
             status = discord.Status.online,
         )
-        bot.loop.create_task(status_task())
-        bot.loop.create_task(read_holo())
-        bot.loop.create_task(broadcast(bot))
-        bot.loop.create_task(reset_db())
-        bot.loop.create_task(read_vroz())
-        bot.loop.create_task(broadcast_vroz(bot))
 
-    async def on_message (self, message):
+        while background_list != {}:
+            module_name = list(background_list.keys())[0]
+            pass_variable = background_list.pop(module_name)
+
+            if pass_variable:
+                bot.loop.create_task(globals()[module_name](bot))
+            else:
+                bot.loop.create_task(globals()[module_name]())
+
+    async def on_message(self, message):
         if message.author.bot:
             return
-        await self.process_commands (message)
+        await self.process_commands(message)
+
+background_list = {"status_task": False, "read_holo": False, "broadcast": True, "reset_db": False, "read_vroz": False, "broadcast_vroz": True}
 
 intents = discord.Intents().all()
 

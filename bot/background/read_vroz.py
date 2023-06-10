@@ -7,9 +7,10 @@ import traceback
 import feedparser
 
 from bot.utils.database import VrozDB
-from bot import VROZ_LINK
+from bot import LOGGER, VROZ_LINK
 
 async def read_vroz():
+    LOGGER.info("Read_vroz start")
     while True:
         try:
             vroz_all = feedparser.parse(VROZ_LINK)

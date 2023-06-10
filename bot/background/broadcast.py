@@ -12,6 +12,7 @@ from bot.utils.language import i18n
 from bot import LOGGER, BOT_NAME_TAG_VER, COLOR_CODE
 
 async def broadcast(bot):
+    LOGGER.info("Broadcast start")
     latest_data = {}
     await asyncio.sleep(5)
 

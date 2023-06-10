@@ -8,9 +8,10 @@ from datetime import datetime
 
 from bot.utils.crawler import getJSON
 from bot.utils.database import *
-from bot import SCHEDULE_LINK
+from bot import LOGGER, SCHEDULE_LINK
 
 async def read_holo():
+    LOGGER.info("Read_holo start")
     while True:
         try:
             header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko'}
