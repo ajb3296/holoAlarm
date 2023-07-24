@@ -18,7 +18,7 @@ class Language (commands.Cog):
         self.userdata_db_path = "userdata.db"
 
     @slash_command()
-    @option("help_option", description="Choose language pack.", choices=lanPack)
+    @option("option", description="Choose language pack.", choices=lanPack)
     async def language (self, ctx, lang: str):
         """ Apply the language pack. """
         if lang is None:

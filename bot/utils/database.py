@@ -185,8 +185,139 @@ class channelDataDB:
         con.close()
         return temp
 
-if __name__ == "__main__":
-    schedule_db_path = "holo.db"
-    channel_db_path = "channel.db"
-    post_list = [(80000, '제목1', '글쓴이1'), (80001, '제목2', '글쓴이2')]
-    scheduleDB().set_database(post_list)
+class Muted():
+    """
+        데이터베이스 구조
+        data:
+            guild_id: int
+            user_id: int
+            delete: bool
+        guild:
+            guild_id: int
+            channel_id: int
+            role_id: int
+    """
+    def __init__(self):
+        self.db_path = "muted.db"
+
+        con = None
+        cur = None
+    
+    def open(self):
+        """ DB 연결 """
+        self.con = sqlite3.connect(self.db_path, isolation_level=None)
+        self.cur = self.con.cursor()
+    
+    def close(self):
+        """ DB 연결 해제 """
+        self.con.close()
+    
+    def enroll_guild(self, guild_id: int, channel_id: int, role_id: int):
+        """ 서버 알림 등록 """
+        try:
+            self.cur.execute(f"SELECT * FROM guild WHERE guild_id=:guild_id", {"guild_id": guild_id})
+            temp = self.cur.fetchone()
+        except:
+            temp = None
+        if temp is None:
+            # 없으면 추가
+            self.cur.execute(f"INSERT INTO guild (guild_id, channel_id, role_id) VALUES(?, ?, ?)", (guild_id, channel_id, role_id))
+        else:
+            self.cur.execute(f"UPDATE guild SET channel_id=:channel_id, role_id=:role_id WHERE guild_id=:guild_id", {"channel_id": channel_id, "role_id": role_id, "guild_id": guild_id})
+    
+    def delete_guild(self, guild_id: int):
+        """ 서버 알림 삭제 """
+        try:
+            self.cur.execute(f"DELETE FROM guild WHERE guild_id=:guild_id", {"guild_id": guild_id})
+            self.cur.execute(f"DELETE FROM data WHERE guild_id=:guild_id", {"guild_id": guild_id})
+        except:
+            return False
+        return True
+
+    def get_all_guild_id(self) -> list[tuple[int, int, int]]:
+        """ 알림이 켜진 서버 목록 가져오기 """
+        try:
+            self.cur.execute(f"SELECT * FROM guild ORDER BY guild_id")
+        except:
+            self.con.close()
+            return None
+        temp = self.cur.fetchall()
+        return temp
+
+    def get_alarm_channel(self, guild_id: int) -> int | None:
+        """ 알림 채널 가져오기 """
+        try:
+            self.cur.execute(f"SELECT * FROM guild WHERE guild_id=:guild_id", {"guild_id": guild_id})
+            temp = self.cur.fetchone()
+        except:
+            temp = None
+        if temp is None:
+            return None
+        else:
+            return temp[1]
+
+    def get_all_db(self, guild_id: int) -> list[tuple[int, int, bool]]:
+        """ 모든 데이터베이스 가져오기 """
+        try:
+            self.cur.execute(f"SELECT * FROM data WHERE guild_id=:guild_id ORDER BY user_id", {"guild_id": guild_id})
+        except:
+            self.con.close()
+            return None
+        temp = self.cur.fetchall()
+        return temp
+
+    def update_user_status(self, guild_id: int, user_id: int, delete: bool):
+        """ 유저 추가 혹은 업데이트 """
+        try:
+            self.cur.execute(f"SELECT * FROM data WHERE guild_id=:guild_id AND user_id=:user_id", {"guild_id": guild_id, "user_id": user_id})
+            temp = self.cur.fetchone()
+        except:
+            temp = None
+        if temp is None:
+            # 없으면 추가
+            self.cur.execute(f"INSERT INTO data (guild_id, user_id, delete) VALUES(?, ?, ?)", (guild_id, user_id, delete))
+        else:
+            # 다음에 삭제할지 말지 업데이트
+            self.cur.execute(f"UPDATE data SET delete=:delete WHERE guild_id=:guild_id AND user_id=:user_id", {"delete": delete, "guild_id": guild_id, "user_id": user_id})
+    
+    def delete_user(self, guild_id: int, user_id: int):
+        """ 유저 삭제 """
+        try:
+            self.cur.execute(f"DELETE FROM data WHERE guild_id=:guild_id user_id=:user_id", {"guild_id": guild_id, "user_id": user_id})
+        except:
+            return False
+        return True
+
+    def check_user(self, guild_id: int, user_id: int) -> bool:
+        """ 유저가 존재하는지 확인, 존재하면 True, 존재하지 않으면 False """
+        try:
+            self.cur.execute(f"SELECT * FROM data WHERE guild_id=:guild_id AND user_id=:user_id", {"guild_id": guild_id, "user_id": user_id})
+            temp = self.cur.fetchone()
+        except:
+            temp = None
+        if temp is None:
+            return False
+        else:
+            return True
+
+    def set_database(self, muted_list: dict[int, list[int]]):
+        for guild_id in muted_list.keys():
+            db = self.get_all_db(guild_id)
+
+            for db_user in db:
+                guild_id, user_id, delete = db_user
+                if guild_id not in muted_list.keys():
+                    # 서버가 없으면 삭제
+                    self.update_user_status(guild_id, user_id, True)
+                else:
+                    if user_id not in muted_list[guild_id]:
+                        # 유저가 없으면 삭제
+                        # 이전 사이클에 유저가 없으면 이번 사이클에 제거
+                        if delete:
+                            self.delete_user(guild_id, user_id)
+                        else:
+                            self.update_user_status(guild_id, user_id, True)
+                    else:
+                        # 유저가 있으면 삭제하지 않음
+                        if delete:
+                            self.update_user_status(guild_id, user_id, False)

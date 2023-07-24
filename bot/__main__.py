@@ -7,6 +7,7 @@ from bot.background.broadcast import broadcast
 from bot.background.reset_db import reset_db
 from bot.background.read_vroz import read_vroz
 from bot.background.broadcast_vroz import broadcast_vroz
+from bot.background.save_muted_members import save_muted_members
 from bot.utils.database import channelDataDB
 
 from bot import LOGGER, TOKEN, EXTENSIONS, BOT_NAME_TAG_VER
@@ -60,7 +61,15 @@ class Bot (commands.Bot):
             return
         await self.process_commands(message)
 
-background_list = {"status_task": False, "read_holo": False, "broadcast": True, "reset_db": False, "read_vroz": False, "broadcast_vroz": True}
+background_list = {
+    "status_task": False,
+    "read_holo": False,
+    "broadcast": True,
+    "reset_db": False,
+    "read_vroz": False,
+    "broadcast_vroz": True,
+    "save_muted_members": True,
+}
 
 intents = discord.Intents().all()
 
