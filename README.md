@@ -25,4 +25,4 @@ class Development(Config):
 
 # ETC
 
-VC관련 오픈소스 : (VoiceMaster-Discord-Bot)[https://github.com/SamSanai/VoiceMaster-Discord-Bot]
+VC관련 오픈소스 : [VoiceMaster-Discord-Bot](https://github.com/SamSanai/VoiceMaster-Discord-Bot)
