@@ -51,6 +51,6 @@ conn.close()
 
 con = sqlite3.connect("muted.db", isolation_level=None)
 cur = con.cursor()
-cur.execute("CREATE TABLE IF NOT EXISTS data (guild_id int, user_id int, delete bool)")
+cur.execute("CREATE TABLE IF NOT EXISTS data (guild_id int, user_id int, delete_check bool)")
 cur.execute("CREATE TABLE IF NOT EXISTS guild (guild_id int, channel_id int, role_id int)")
 con.close()

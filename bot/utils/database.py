@@ -34,7 +34,7 @@ class scheduleDB:
                 # 없으면 추가
                 cur.execute(f"INSERT INTO {name} (datetime, unixdatetime, url, thumbnail, title, iconImage) VALUES(?, ?, ?, ?, ?, ?)", (datetime_text, int(unixdatetime), url, thumbnail, title, icon_url))
             elif temp[5] != title:
-                cur.execute(f"UPDATE {name} SET thumbnail=:thumbnail, url=:url, title=:title WHERE datetime=:datetime LIMIT 1", {"url": url, "thumbnail": thumbnail, "title": title, 'datetime': datetime_text})
+                cur.execute(f"UPDATE {name} SET thumbnail=:thumbnail, url=:url, title=:title WHERE datetime=:datetime", {"url": url, "thumbnail": thumbnail, "title": title, 'datetime': datetime_text})
         con.close()
 
     def get_database(self, table_name: str) -> list[tuple] | None:
@@ -191,7 +191,7 @@ class Muted():
         data:
             guild_id: int
             user_id: int
-            delete: bool
+            delete_check: bool
         guild:
             guild_id: int
             channel_id: int
@@ -275,10 +275,10 @@ class Muted():
             temp = None
         if temp is None:
             # 없으면 추가
-            self.cur.execute(f"INSERT INTO data (guild_id, user_id, delete) VALUES(?, ?, ?)", (guild_id, user_id, delete))
+            self.cur.execute(f"INSERT INTO data (guild_id, user_id, delete_check) VALUES(?, ?, ?)", (guild_id, user_id, delete))
         else:
             # 다음에 삭제할지 말지 업데이트
-            self.cur.execute(f"UPDATE data SET delete=:delete WHERE guild_id=:guild_id AND user_id=:user_id", {"delete": delete, "guild_id": guild_id, "user_id": user_id})
+            self.cur.execute(f"UPDATE data SET delete_check=:delete_check WHERE guild_id=:guild_id AND user_id=:user_id", {"delete_check": delete, "guild_id": guild_id, "user_id": user_id})
     
     def delete_user(self, guild_id: int, user_id: int):
         """ 유저 삭제 """
@@ -301,23 +301,29 @@ class Muted():
             return True
 
     def set_database(self, muted_list: dict[int, list[int]]):
-        for guild_id in muted_list.keys():
-            db = self.get_all_db(guild_id)
+        for guild_id in muted_list.keys(): # 들어온 값에서 서버 하나씩 확인
+            db = self.get_all_db(guild_id) # 데이터베이스에서 서버의 뮤트된 유저 목록 가져오기
+            if db != []: # 데이터베이스에 유저가 있으면
+                for db_user in db: # 데이터베이스 유저를 하나씩 확인
+                    user_id = db_user[1]
+                    delete = db_user[2]
 
-            for db_user in db:
-                guild_id, user_id, delete = db_user
-                if guild_id not in muted_list.keys():
-                    # 서버가 없으면 삭제
-                    self.update_user_status(guild_id, user_id, True)
-                else:
-                    if user_id not in muted_list[guild_id]:
+                    if user_id not in muted_list[guild_id]: # 만약 데이터베이스엔 존재하지만 들어온 값에는 없으면
                         # 유저가 없으면 삭제
-                        # 이전 사이클에 유저가 없으면 이번 사이클에 제거
+                        # 이전 사이클에 제거된 유저가 있으면 이번 사이클에 제거
                         if delete:
                             self.delete_user(guild_id, user_id)
                         else:
                             self.update_user_status(guild_id, user_id, True)
-                    else:
-                        # 유저가 있으면 삭제하지 않음
+                    
+                    else: # 데이터베이스에도 존재하고 들어온 값에도 존재하면
                         if delete:
                             self.update_user_status(guild_id, user_id, False)
+                    try:
+                        muted_list[guild_id].remove(user_id)
+                    except ValueError:
+                        pass
+            
+            # 데이터베이스에 없는 유저 추가
+            for user_id in muted_list[guild_id]:
+                self.update_user_status(guild_id, user_id, False)

@@ -1,4 +1,3 @@
-import os
 import discord
 from discord import option
 from discord.ext import commands
@@ -15,7 +14,7 @@ class MuteCheck(commands.Cog):
     @slash_command()
     @option("onoff", description="이 채널에서의 뮤트 우회 시도 알림을 켜거나 끕니다", choices=["ON", "OFF"])
     @option("role", description="뮤트 역할을 입력하세요")
-    async def alarmset (self, ctx, onoff: str, role: discord.Role):
+    async def mutealarmset(self, ctx, onoff: str, role: discord.Role):
         """ 이 채널에서의 뮤트 우회 시도 알림을 켜거나 끕니다 """
         # 오너가 아닐 경우 관리자 권한이 있는지 확인
         if ctx.author.id not in OWNERS:
@@ -42,19 +41,6 @@ class MuteCheck(commands.Cog):
 
         embed.set_footer(text=BOT_NAME_TAG_VER)
         await ctx.respond(embed=embed)
-
-    @commands.on_member_remove()
-    async def mute_check(self, member):
-        muted = Muted()
-        muted.open()
-
-        guild = member.guild
-        result = muted.check_user(guild.id, member.id)
-        if result:
-            channel_id = muted.get_alarm_channel(guild.id)
-            if channel_id is not None:
-                channel = guild.get_channel(channel_id)
-                await channel.send(f"{member.name}({member.id}) 님이 뮤트 역할을 가진 채로 서버에서 나갔습니다")
 
 def setup(bot):
     bot.add_cog (MuteCheck(bot))

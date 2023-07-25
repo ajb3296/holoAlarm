@@ -8,7 +8,7 @@ from bot.background.reset_db import reset_db
 from bot.background.read_vroz import read_vroz
 from bot.background.broadcast_vroz import broadcast_vroz
 from bot.background.save_muted_members import save_muted_members
-from bot.utils.database import channelDataDB
+from bot.utils.database import channelDataDB, Muted
 
 from bot import LOGGER, TOKEN, EXTENSIONS, BOT_NAME_TAG_VER
 
@@ -60,6 +60,23 @@ class Bot (commands.Bot):
         if message.author.bot:
             return
         await self.process_commands(message)
+    
+    async def on_member_remove(self, member):
+        muted = Muted()
+        muted.open()
+
+        guild = member.guild
+        result = muted.check_user(guild.id, member.id)
+        if result:
+            channel_id = muted.get_alarm_channel(guild.id)
+            if channel_id is not None:
+                channel = guild.get_channel(channel_id)
+                embed=discord.Embed(title=f"{member.name}({member.id}) 님이 뮤트 역할을 가진 채로 서버에서 나갔습니다")
+                embed.set_footer(text=BOT_NAME_TAG_VER)
+                return await channel.send(embed=embed)
+        
+        muted.delete_user(guild.id, member.id)
+        muted.close()
 
 background_list = {
     "status_task": False,
