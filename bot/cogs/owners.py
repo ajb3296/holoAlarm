@@ -7,7 +7,7 @@ from bot import LOGGER, BOT_NAME_TAG_VER, COLOR_CODE, DebugServer, BOT_NAME
 from bot.utils.database import channelDataDB
 
 class Owners(commands.Cog):
-    def __init__ (self, bot):
+    def __init__(self, bot):
         self.bot = bot
 
     @slash_command(permissions=[commands.is_owner().predicate], guild_ids=DebugServer)
@@ -103,5 +103,5 @@ class Owners(commands.Cog):
                 await ctx.followup.send(embed=embed)
 
 def setup(bot):
-    bot.add_cog (Owners(bot))
+    bot.add_cog(Owners(bot))
     LOGGER.info('Owners loaded!')

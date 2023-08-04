@@ -7,7 +7,7 @@ from bot import LOGGER, BOT_NAME_TAG_VER, COLOR_CODE, OWNERS, EXTENSIONS
 from bot.utils.language import i18n
 
 class Help(commands.Cog):
-    def __init__ (self, bot):
+    def __init__(self, bot):
         self.bot = bot
 
     @slash_command()
@@ -64,5 +64,5 @@ class Help(commands.Cog):
             
 
 def setup(bot):
-    bot.add_cog (Help(bot))
+    bot.add_cog(Help(bot))
     LOGGER.info('Help loaded!')

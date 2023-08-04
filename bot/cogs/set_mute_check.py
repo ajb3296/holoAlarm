@@ -8,7 +8,7 @@ from bot.utils.language import i18n
 from bot import LOGGER, BOT_NAME_TAG_VER, COLOR_CODE, OWNERS
 
 class MuteCheck(commands.Cog):
-    def __init__ (self, bot):
+    def __init__(self, bot):
         self.bot = bot
 
     @slash_command()
@@ -43,5 +43,5 @@ class MuteCheck(commands.Cog):
         await ctx.respond(embed=embed)
 
 def setup(bot):
-    bot.add_cog (MuteCheck(bot))
+    bot.add_cog(MuteCheck(bot))
     LOGGER.info('MuteCheck loaded!')

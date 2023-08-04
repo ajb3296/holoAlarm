@@ -5,7 +5,7 @@ from discord.commands import slash_command
 from bot import LOGGER, BOT_NAME_TAG_VER, COLOR_CODE
 
 class About(commands.Cog):
-    def __init__ (self, bot):
+    def __init__(self, bot):
         self.bot = bot
 
     @slash_command()
@@ -18,5 +18,5 @@ class About(commands.Cog):
         await ctx.respond(embed=embed)
 
 def setup(bot):
-    bot.add_cog (About(bot))
+    bot.add_cog(About(bot))
     LOGGER.info('About loaded!')

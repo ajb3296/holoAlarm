@@ -283,7 +283,7 @@ class Muted():
     def delete_user(self, guild_id: int, user_id: int):
         """ 유저 삭제 """
         try:
-            self.cur.execute(f"DELETE FROM data WHERE guild_id=:guild_id user_id=:user_id", {"guild_id": guild_id, "user_id": user_id})
+            self.cur.execute(f"DELETE FROM data WHERE guild_id=:guild_id AND user_id=:user_id", {"guild_id": guild_id, "user_id": user_id})
         except:
             return False
         return True
@@ -309,7 +309,6 @@ class Muted():
                     delete = db_user[2]
 
                     if user_id not in muted_list[guild_id]: # 만약 데이터베이스엔 존재하지만 들어온 값에는 없으면
-                        # 유저가 없으면 삭제
                         # 이전 사이클에 제거된 유저가 있으면 이번 사이클에 제거
                         if delete:
                             self.delete_user(guild_id, user_id)

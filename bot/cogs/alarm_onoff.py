@@ -14,14 +14,14 @@ for file in os.listdir("bot/language"):
         lanPack.append(file.replace(".json", ""))
 
 class AlarmSet(commands.Cog):
-    def __init__ (self, bot):
+    def __init__(self, bot):
         self.bot = bot
 
     @slash_command()
     @option("table", description="알람 소스를 선택하세요", choices=["Hololive", "VROZ"])
     @option("onoff", description="이 채널에서의 알람을 켜거나 끕니다", choices=["ON", "OFF"])
     @option("language", description="언어를 선택합니다", choices=lanPack)
-    async def alarmset (self, ctx, table: str, onoff: str, language: str):
+    async def alarmset(self, ctx, table: str, onoff: str, language: str):
         """ 이 채널에서 홀로라이브 스케쥴 알림을 켜거나 끕니다 """
         # 오너가 아닐 경우 관리자 권한이 있는지 확인
         if ctx.author.id not in OWNERS:
@@ -51,7 +51,7 @@ class AlarmSet(commands.Cog):
     
     @slash_command()
     @option("table", description="알람이 켜져있는지 확인할 소스를 선택하세요", choices=["Hololive", "VROZ"])
-    async def alarmstatus (self, ctx, table: str):
+    async def alarmstatus(self, ctx, table: str):
         """ 이 채널에서 해당 소스의 알람이 켜져있는지 확인합니다. """
         # 땜빵
         if table == "Hololive":
@@ -68,5 +68,5 @@ class AlarmSet(commands.Cog):
         await ctx.respond(embed=embed)
 
 def setup(bot):
-    bot.add_cog (AlarmSet(bot))
+    bot.add_cog(AlarmSet(bot))
     LOGGER.info('AlarmSet loaded!')
