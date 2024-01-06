@@ -20,7 +20,7 @@ class Config(object):
     SCHEDULE_DB_PATH = "holo.db"
     CHANNEL_DB_PATH = "channel.db"
 
-    VROZ_LINK = "https://vroz.cc/rss.xml"
+    VROZ_LINK = "https://vroznews.com/rss.xml"
 
 class Production(Config):
     LOGGER = False

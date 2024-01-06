@@ -200,8 +200,8 @@ class Muted():
     def __init__(self):
         self.db_path = "muted.db"
 
-        con = None
-        cur = None
+        self.con = None
+        self.cur = None
     
     def open(self):
         """ DB 연결 """

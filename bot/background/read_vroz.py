@@ -22,7 +22,7 @@ async def read_vroz():
                 thumbnail = temp.media_content[0]["url"]
 
                 if thumbnail[0:4] != "http":
-                    thumbnail = "https://vroz.cc" + thumbnail
+                    thumbnail = "https://vroznews.com" + thumbnail
 
                 goto_DB.append((title.replace("'", "''"),
                                 description.replace("'", "''"),

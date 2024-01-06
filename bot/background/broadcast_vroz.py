@@ -61,7 +61,7 @@ async def send_msg(bot, article_id, title, description, thumbnail):
             target_channel = bot.get_channel(channel_id)
             try:
                 embed=discord.Embed(title=title, description=description, color=color)
-                embed.add_field(name="링크", value=f"https://vroz.cc/v/{article_id}", inline=False)
+                embed.add_field(name="링크", value=f"https://vroznews.com/v/{article_id}", inline=False)
                 # 썸네일 설정
                 embed.set_image(url=thumbnail)
                 embed.set_footer(text=BOT_NAME_TAG_VER)
