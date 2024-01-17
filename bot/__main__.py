@@ -62,6 +62,7 @@ class Bot (commands.Bot):
         await self.process_commands(message)
     
     async def on_member_remove(self, member):
+        # 뮤트된 유저가 서버를 나갈 경우 관리자에게 알림
         muted = Muted()
         muted.open()
 
@@ -71,6 +72,11 @@ class Bot (commands.Bot):
             channel_id = muted.get_alarm_channel(guild.id)
             if channel_id is not None:
                 channel = guild.get_channel(channel_id)
+
+                # 홀로 팬클럽 서버일 경우에만 맨션
+                if guild.id == 866120502354116649:
+                    await channel.send("<@&871842508370489365>")
+
                 embed=discord.Embed(title=f"{member.name}({member.id}) 님이 뮤트 역할을 가진 채로 서버에서 나갔습니다")
                 embed.set_footer(text=BOT_NAME_TAG_VER)
                 return await channel.send(embed=embed)
