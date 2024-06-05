@@ -89,8 +89,8 @@ background_list = {
     "read_holo": False,
     "broadcast": True,
     "reset_db": False,
-    "read_vroz": False,
-    "broadcast_vroz": True,
+    # "read_vroz": False,
+    # "broadcast_vroz": True,
     "save_muted_members": True,
 }
 
