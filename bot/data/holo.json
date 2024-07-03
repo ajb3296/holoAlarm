@@ -290,6 +290,11 @@
 		"message": ""
 	},
 	
+	"FUWAMOCO": {
+		"id": "1135072458882433094",
+		"color": "#F9F1E3",
+		"message": ""
+	},
 	"Abyssgard": {
 		"id": "1135072458882433094",
 		"color": "#F9F1E3",
@@ -306,7 +311,7 @@
 		"message": ""
 	},
 
-	"Bloodflame": {
+	"Elizabeth": {
 		"id": "1254356490219683891",
 		"color": "#BD4241",
 		"message": ""
@@ -322,7 +327,7 @@
 		"color": "#CEEDD2",
 		"message": ""
 	},
-	"Panthera": {
+	"Raora": {
 		"id": "1254356904373653575",
 		"color": "#F89ABD",
 		"message": ""
